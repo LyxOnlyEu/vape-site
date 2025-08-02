@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>VAPE - Connexion & Site officiel</title>
+<style>
+  /* ===== Reset & Base ===== */
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  html, body {
+    height: 100%;
+    font-family: 'Poppins', sans-serif;
+    background-color: #111;
+    color: #eee;
+  }
+  body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* ===== Container Connexion ===== */
+  #authContainer {
+    background-color: #1a1a1a;
+    border-radius: 8px;
+    padding: 30px 35px;
+    width: 360px;
+    box-shadow: 0 0 8px rgba(255, 0, 0, 0.25);
+    box-sizing: border-box;
+  }
+  h2 {
+    margin-bottom: 28px;
+    font-weight: 500;
+    text-align: center;
+    font-size: 24px;
+    letter-spacing: 0.03em;
+  }
+  .form {
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    position: relative;
+  }
+  .form.hidden {
+    opacity: 0;
+    transform: translateY(-20px);
+    height: 0;
+    overflow: hidden;
+    pointer-events: none;
+    position: absolute;
+    left: 0; right: 0;
+  }
+  .input-group {
+    position: relative;
+    margin-bottom: 22px;
+  }
+  .input-group svg {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    fill: #999;
+    pointer-events: none;
+  }
+  input[type="text"],
+  input[type="email"],
+  input[type="password"] {
+    width: 100%;
+    padding: 12px 14px 12px 44px;
+    background-color: #222;
+    border: none;
+    border-radius: 6px;
+    color: #eee;
+    font-size: 17px;
+    font-weight: 400;
+    outline-offset: 2px;
+    box-sizing: border-box;
+    transition: background-color 0.25s ease;
+  }
+  input[type="text"]:focus,
+  input[type="email"]:focus,
+  input[type="password"]:focus {
+    background-color: #2c2c2c;
+  }
+  button {
+    width: 100%;
+    background-color: #d32f2f;
+    border: none;
+    padding: 12px 0;
+    border-radius: 6px;
+    color: white;
+    font-weight: 500;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    user-select: none;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  button:hover {
+    background-color: #b72b2b;
+    box-shadow: 0 0 8px rgba(255, 0, 0, 0.8);
+  }
+  .secondary-text {
+    margin-top: 20px;
+    font-size: 14px;
+    text-align: center;
+    color: #aaa;
+    user-select: none;
+  }
+  .secondary-text a {
+    color: #d32f2f;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .secondary-text a:hover {
+    text-decoration: underline;
+  }
+
+  /* ===== Site Principal ===== */
+  #siteContainer {
+    display: none;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100%;
+    background: #1f2125;
+    font-family: 'Poppins', sans-serif;
+    color: #ddd;
+  }
+  canvas#background {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    background: #1f2125;
+  }
+  header {
+    background: linear-gradient(90deg, #2c2f35, #25272c);
+    padding: 15px 0;
+    z-index: 10;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+  }
+  nav {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+  }
+  nav a {
+    flex: 1;
+    max-width: 140px;
+    text-align: center;
+    padding: 10px 0;
+    color: #ddd;
+    font-weight: 600;
+    text-decoration: none;
+    user-select: none;
+    border-radius: 6px;
+    transition:
+      color 0.3s ease,
+      background-color 0.3s ease,
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
+  }
+  nav a:hover,
+  nav a.active {
+    color: #ff5555;
+    background: rgba(255, 85, 85, 0.12);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(255, 85, 85, 0.4);
+  }
+  main {
+    flex-grow: 1;
+    max-width: 900px;
+    margin: 40px auto 60px;
+    background: rgba(40,40,45, 0.7);
+    border-radius: 15px;
+    padding: 30px 40px;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.7);
+    color: #eee;
+    z-index: 5;
+  }
+  section {
+    display: none;
+    animation: fadeIn 0.6s ease forwards;
+  }
+  section.active {
+    display: block;
+  }
+  @keyframes fadeIn {
+    from {opacity: 0; transform: translateY(15px);}
+    to {opacity: 1; transform: translateY(0);}
+  }
+  h1 {
+    font-weight: 800;
+    color: #ff5a5a;
+    margin-bottom: 10px;
+    font-size: 2.8rem;
+    letter-spacing: 1.2px;
+  }
+  h2 {
+    margin-bottom: 15px;
+    color: #ff6e6e;
+  }
+  p {
+    line-height: 1.5;
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    color: #ccc;
+  }
+  .btn {
+    display: inline-block;
+    background: linear-gradient(45deg, #ff5656, #ff2222);
+    color: #fff;
+    font-weight: 700;
+    padding: 12px 25px;
+    border-radius: 30px;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(255, 34, 34, 0.5);
+    transition: all 0.3s ease;
+    user-select: none;
+  }
+  .btn:hover {
+    background: linear-gradient(45deg, #ff2222, #ff5656);
+    box-shadow: 0 8px 20px rgba(255, 34, 34, 0.7);
+    transform: translateY(-4px);
+  }
+  footer {
+    background: #1f2125;
+    color: #aa2222;
+    text-align: center;
+    padding: 15px 10px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    user-select: none;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.5);
+  }
+  /* Logout button style */
+  #logoutBtn {
+    margin: 15px auto;
+    background: #b33;
+    padding: 12px 28px;
+    border-radius: 24px;
+    border: none;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    display: block;
+    max-width: 180px;
+    user-select: none;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  #logoutBtn:hover {
+    background: #8a2222;
+    box-shadow: 0 0 8px rgba(255, 0, 0, 0.8);
+  }
+</style>
+</head>
+<body>
+
+<!-- Conteneur Authentification -->
+<div id="authContainer" role="main" aria-label="Formulaire de connexion et inscription">
+
+  <!-- Formulaire Connexion -->
+  <form id="loginForm" class="form" aria-label="Formulaire de connexion" novalidate>
+    <h2>Connexion</h2>
+
+    <div class="input-group">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z"/></svg>
+      <input type="text" id="loginUsername" placeholder="Nom d'utilisateur" autocomplete="username" aria-label="Nom d'utilisateur" required />
+    </div>
+
+    <div class="input-group">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 8V6c0-2.8-2.2-5-5-5S7 3.2 7 6v2H5v14h14V8h-2zm-6-2c0-1.1.9-2 2-2s2 .9 2 2v2H11V6zm6 14H7v-8h10v8z"/></svg>
+      <input type="password" id="loginPassword" placeholder="Mot de passe" autocomplete="current-password" aria-label="Mot de passe" required />
+    </div>
+
+    <button type="submit">⚡ Se connecter</button>
+
+    <div class="secondary-text">
+      Vous n'avez pas de compte ? <a id="showSignup" href="#">Inscrivez-vous</a>
+    </div>
+  </form>
+
+  <!-- Formulaire Inscription -->
+  <form id="signupForm" class="form hidden" aria-label="Formulaire d'inscription" novalidate>
+    <h2>Inscription</h2>
+
+    <div class="input-group">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z"/></svg>
+      <input type="text" id="signupUsername" placeholder="Nom d'utilisateur" autocomplete="username" aria-label="Nom d'utilisateur" required />
+    </div>
+
+    <div class="input-group">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      <input type="email" id="signupEmail" placeholder="Email" autocomplete="email" aria-label="Adresse email" required />
+    </div>
+
+    <div class="input-group">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 8V6c0-2.8-2.2-5-5-5S7 3.2 7 6v2H5v14h14V8h-2zm-6-2c0-1.1.9-2 2-2s2 .9 2 2v2H11V6zm6 14H7v-8h10v8z"/></svg>
+      <input type="password" id="signupPassword" placeholder="Mot de passe" autocomplete="new-password" aria-label="Mot de passe" required />
+    </div>
+
+    <div class="input-group">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 8V6c0-2.8-2.2-5-5-5S7 3.2 7 6v2H5v14h14V8h-2zm-6-2c0-1.1.9-2 2-2s2 .9 2 2v2H11V6zm6 14H7v-8h10v8z"/></svg>
+      <input type="password" id="signupPasswordConfirm" placeholder="Confirmer le mot de passe" autocomplete="new-password" aria-label="Confirmation du mot de passe" required />
+    </div>
+
+    <button type="submit">⚡ S'inscrire</button>
+
+    <div class="secondary-text">
+      Vous avez déjà un compte ? <a id="showLogin" href="#">Connectez-vous</a>
+    </div>
+  </form>
+
+</div>
+
+<!-- Conteneur Site -->
+<div id="siteContainer" aria-label="Site VAPE officiel">
+
+  <!-- Fond animé -->
+  <canvas id="background"></canvas>
+
+  <header>
+    <nav>
+      <a href="#home" class="active" data-tab="home">Accueil</a>
+      <a href="#about" data-tab="about">À propos</a>
+      <a href="#dashboard" data-tab="dashboard">Tableau de bord</a>
+      <a href="#download" data-tab="download">Téléchargement</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="home" class="active">
+      <h1>VAPE — l’essentiel, sans compromis.</h1>
+      <p>Bienvenue sur le site officiel de VAPE, votre outil venu d’un autre monde.<br>
+         Explorez nos fonctionnalités, téléchargez l’application et rejoignez la révolution numérique.</p>
+    </section>
+
+    <section id="about">
+      <h2>À propos de VAPE</h2>
+      <p>VAPE est une application puissante et intuitive conçue pour répondre à tous vos besoins numériques avec élégance et efficacité. 
+         Notre équipe est dédiée à fournir des outils de qualité, simples et performants.</p>
+      <p>Nous mettons un point d'honneur à allier design moderne et fonctionnalités avancées pour une expérience utilisateur optimale.</p>
+    </section>
+
+    <section id="dashboard">
+      <h2>Tableau de bord</h2>
+      <p>Nombre total de téléchargements :</p>
+      <div id="downloadCount">0</div>
+      <p>Statistiques en temps réel, mises à jour automatiques et analyses pour mieux vous servir.</p>
+    </section>
+
+    <section id="download">
+      <h2>Téléchargement</h2>
+      <p>Obtenez la dernière version de VAPE en cliquant sur le bouton ci-dessous.</p>
+      <a class="btn" href="https://www.mediafire.com/file/wv9cmo8kg2pz4ua/VAPE.rar/file" target="_blank" rel="noopener noreferrer" id="downloadBtn">Télécharger</a>
+    </section>
+  </main>
+
+  <button id="logoutBtn" aria-label="Se déconnecter">Déconnexion</button>
+
+  <footer>
+    &copy; 2025 VAPE. All rights reserved.
+  </footer>
+</div>
+
+<script>
+  // Gestion affichage form connexion / inscription avec animation
+  const loginForm = document.getElementById('loginForm');
+  const signupForm = document.getElementById('signupForm');
+  const showSignupLink = document.getElementById('showSignup');
+  const showLoginLink = document.getElementById('showLogin');
+  const authContainer = document.getElementById('authContainer');
+  const siteContainer = document.getElementById('siteContainer');
+  const logoutBtn = document.getElementById('logoutBtn');
+
+  showSignupLink.addEventListener('click', e => {
+    e.preventDefault();
+    loginForm.classList.add('hidden');
+    signupForm.classList.remove('hidden');
+  });
+
+  showLoginLink.addEventListener('click', e => {
+    e.preventDefault();
+    signupForm.classList.add('hidden');
+    loginForm.classList.remove('hidden');
+  });
+
+  // Sauvegarde utilisateur dans localStorage
+  function saveUser(user) {
+    const users = JSON.parse(localStorage.getItem('users') || '{}');
+    users[user.username] = user;
+    localStorage.setItem('users', JSON.stringify(users));
+  }
+  // Récupérer utilisateur
+  function getUser(username) {
+    const users = JSON.parse(localStorage.getItem('users') || '{}');
+    return users[username];
+  }
+
+  // Validation formulaire inscription
+  signupForm.addEventListener('submit', e => {
+    e.preventDefault();
+
+    const username = document.getElementById('signupUsername').value.trim();
+    const email = document.getElementById('signupEmail').value.trim();
+    const password = document.getElementById('signupPassword').value;
+    const passwordConfirm = document.getElementById('signupPasswordConfirm').value;
+
+    if(username.length < 3) return alert("Nom d'utilisateur trop court (3 caractères minimum).");
+    if(!email.includes('@') || email.length < 6) return alert("Email invalide.");
+    if(password.length < 6) return alert("Mot de passe trop court (6 caractères minimum).");
+    if(password !== passwordConfirm) return alert("Les mots de passe ne correspondent pas.");
+
+    if(getUser(username)) {
+      return alert("Ce nom d'utilisateur est déjà utilisé.");
+    }
+
+    saveUser({username, email, password});
+    alert("Inscription réussie, vous pouvez maintenant vous connecter.");
+    signupForm.reset();
+    signupForm.classList.add('hidden');
+    loginForm.classList.remove('hidden');
+  });
+
+  // Validation formulaire connexion
+  loginForm.addEventListener('submit', e => {
+    e.preventDefault();
+
+    const username = document.getElementById('loginUsername').value.trim();
+    const password = document.getElementById('loginPassword').value;
+
+    const user = getUser(username);
+    if(!user || user.password !== password) {
+      return alert("Nom d'utilisateur ou mot de passe incorrect.");
+    }
+
+    // Afficher site principal
+    authContainer.style.display = 'none';
+    siteContainer.style.display = 'flex';
+    document.body.style.overflow = 'auto';
+    loadDashboardStats();
+
+  });
+
+  // Logout
+  logoutBtn.addEventListener('click', () => {
+    siteContainer.style.display = 'none';
+    authContainer.style.display = 'block';
+    loginForm.reset();
+    signupForm.reset();
+    signupForm.classList.add('hidden');
+    loginForm.classList.remove('hidden');
+  });
+
+  // Gestion onglets site
+  const navLinks = document.querySelectorAll('nav a');
+  const sections = document.querySelectorAll('main section');
+
+  navLinks.forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const target = e.currentTarget.getAttribute('data-tab');
+
+      // Activer lien
+      navLinks.forEach(l => l.classList.remove('active'));
+      e.currentTarget.classList.add('active');
+
+      // Afficher section
+      sections.forEach(sec => {
+        if(sec.id === target) {
+          sec.classList.add('active');
+        } else {
+          sec.classList.remove('active');
+        }
+      });
+    });
+  });
+
+  // Tableau de bord - simulation compteur
+  function loadDashboardStats() {
+    const countEl = document.getElementById('downloadCount');
+    let count = parseInt(localStorage.getItem('downloadCount') || '0', 10);
+
+    // Simuler + incrémenter
+    count++;
+    localStorage.setItem('downloadCount', count);
+    countEl.textContent = count.toLocaleString();
+  }
+
+  // === Fond animé Canvas ===
+  const canvas = document.getElementById('background');
+  const ctx = canvas.getContext('2d');
+  let w, h;
+  function resize() {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  const particles = [];
+  const maxParticles = 80;
+
+  class Particle {
+    constructor() {
+      this.x = Math.random()*w;
+      this.y = Math.random()*h;
+      this.vx = (Math.random()-0.5)*0.5;
+      this.vy = (Math.random()-0.5)*0.5;
+      this.size = Math.random()*2 + 1;
+    }
+    update() {
+      this.x += this.vx;
+      this.y += this.vy;
+      if(this.x < 0 || this.x > w) this.vx *= -1;
+      if(this.y < 0 || this.y > h) this.vy *= -1;
+    }
+    draw() {
+      ctx.beginPath();
+      ctx.fillStyle = 'rgba(255,80,80,0.6)';
+      ctx.shadowColor = 'rgba(255,80,80,0.8)';
+      ctx.shadowBlur = 8;
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI*2);
+      ctx.fill();
+    }
+  }
+
+  for(let i=0; i<maxParticles; i++) {
+    particles.push(new Particle());
+  }
+
+  function animate() {
+    ctx.clearRect(0,0,w,h);
+    for(let p of particles) {
+      p.update();
+      p.draw();
+    }
+    requestAnimationFrame(animate);
+  }
+  animate();
+
+</script>
+
+</body>
+</html>
