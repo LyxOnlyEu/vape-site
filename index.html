@@ -193,9 +193,21 @@
   section {
     display: none;
     animation: fadeIn 0.6s ease forwards;
+    content-visibility: auto;
+    contain-intrinsic-size: 600px 800px;
   }
   section.active {
     display: block;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation: none !important;
+      transition: none !important;
+      scroll-behavior: auto !important;
+    }
+    canvas#background {
+      display: none !important;
+    }
   }
   @keyframes fadeIn {
     from {opacity: 0; transform: translateY(15px);}
@@ -234,6 +246,12 @@
     background: linear-gradient(45deg, #ff2222, #ff5656);
     box-shadow: 0 8px 20px rgba(255, 34, 34, 0.7);
     transform: translateY(-4px);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .btn:hover {
+      transform: none;
+      box-shadow: none;
+    }
   }
   footer {
     background: #1f2125;
@@ -451,6 +469,7 @@
     siteContainer.style.display = 'flex';
     document.body.style.overflow = 'auto';
     loadDashboardStats();
+    startAnimation();
 
   });
 
@@ -462,6 +481,7 @@
     signupForm.reset();
     signupForm.classList.add('hidden');
     loginForm.classList.remove('hidden');
+    stopAnimation();
   });
 
   // Gestion onglets site
@@ -499,57 +519,110 @@
     countEl.textContent = count.toLocaleString();
   }
 
-  // === Fond animé Canvas ===
+  // === Fond animé Canvas (optimisé) ===
   const canvas = document.getElementById('background');
   const ctx = canvas.getContext('2d');
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
   let w, h;
-  function resize() {
+  let resizeRaf;
+  function resizeNow() {
     w = canvas.width = window.innerWidth;
     h = canvas.height = window.innerHeight;
+    if (isAnimating) {
+      rebuildParticles();
+    }
   }
-  window.addEventListener('resize', resize);
-  resize();
+  function onResize() {
+    if (resizeRaf) cancelAnimationFrame(resizeRaf);
+    resizeRaf = requestAnimationFrame(resizeNow);
+  }
+  window.addEventListener('resize', onResize, { passive: true });
+  resizeNow();
 
-  const particles = [];
-  const maxParticles = 80;
+  let particles = [];
+  const maxParticlesBase = 80;
 
   class Particle {
     constructor() {
-      this.x = Math.random()*w;
-      this.y = Math.random()*h;
-      this.vx = (Math.random()-0.5)*0.5;
-      this.vy = (Math.random()-0.5)*0.5;
-      this.size = Math.random()*2 + 1;
+      this.x = Math.random() * w;
+      this.y = Math.random() * h;
+      this.vx = (Math.random() - 0.5) * 0.5;
+      this.vy = (Math.random() - 0.5) * 0.5;
+      this.size = Math.random() * 2 + 1;
     }
     update() {
       this.x += this.vx;
       this.y += this.vy;
-      if(this.x < 0 || this.x > w) this.vx *= -1;
-      if(this.y < 0 || this.y > h) this.vy *= -1;
+      if (this.x < 0 || this.x > w) this.vx *= -1;
+      if (this.y < 0 || this.y > h) this.vy *= -1;
     }
-    draw() {
+  }
+
+  function rebuildParticles() {
+    particles.length = 0;
+    const area = w * h;
+    const desired = Math.min(maxParticlesBase, Math.max(20, Math.round(area / 30000)));
+    for (let i = 0; i < desired; i++) {
+      particles.push(new Particle());
+    }
+  }
+
+  let animationId = null;
+  let isAnimating = false;
+
+  function loop() {
+    if (!isAnimating) return;
+    ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = 'rgba(255,80,80,0.6)';
+    ctx.shadowColor = 'rgba(255,80,80,0.8)';
+    ctx.shadowBlur = 8;
+    for (let p of particles) {
+      p.update();
       ctx.beginPath();
-      ctx.fillStyle = 'rgba(255,80,80,0.6)';
-      ctx.shadowColor = 'rgba(255,80,80,0.8)';
-      ctx.shadowBlur = 8;
-      ctx.arc(this.x, this.y, this.size, 0, Math.PI*2);
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
       ctx.fill();
     }
+    animationId = requestAnimationFrame(loop);
   }
 
-  for(let i=0; i<maxParticles; i++) {
-    particles.push(new Particle());
+  function startAnimation() {
+    if (isAnimating || prefersReducedMotion.matches) return;
+    isAnimating = true;
+    canvas.style.display = 'block';
+    if (particles.length === 0) rebuildParticles();
+    loop();
   }
 
-  function animate() {
-    ctx.clearRect(0,0,w,h);
-    for(let p of particles) {
-      p.update();
-      p.draw();
+  function stopAnimation() {
+    if (!isAnimating) return;
+    isAnimating = false;
+    if (animationId) cancelAnimationFrame(animationId);
+    animationId = null;
+    ctx.clearRect(0, 0, w, h);
+  }
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      stopAnimation();
+    } else if (siteContainer.style.display === 'flex') {
+      startAnimation();
     }
-    requestAnimationFrame(animate);
+  });
+
+  prefersReducedMotion.addEventListener('change', (e) => {
+    if (e.matches) {
+      stopAnimation();
+      canvas.style.display = 'none';
+    } else if (siteContainer.style.display === 'flex') {
+      canvas.style.display = '';
+      startAnimation();
+    }
+  });
+
+  if (prefersReducedMotion.matches) {
+    canvas.style.display = 'none';
   }
-  animate();
 
 </script>
 
