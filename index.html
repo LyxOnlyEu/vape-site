@@ -268,6 +268,19 @@
     cursor: pointer;
     box-shadow: 0 6px 14px rgba(255, 34, 34, 0.4);
   }
+
+  /* Focus visible for accessibility */
+  a:focus-visible,
+  button:focus-visible,
+  .btn:focus-visible,
+  .menu-toggle:focus-visible,
+  nav a:focus-visible,
+  details summary:focus-visible,
+  #backToTop:focus-visible {
+    outline: 3px solid #ff9a9a;
+    outline-offset: 3px;
+    box-shadow: 0 0 0 3px rgba(255, 85, 85, 0.2);
+  }
 </style>
 </head>
 <body>
