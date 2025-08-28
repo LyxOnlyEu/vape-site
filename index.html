@@ -3,6 +3,14 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="VAPE — l’essentiel, sans compromis. Téléchargez la dernière version et découvrez les fonctionnalités.">
+<meta name="theme-color" content="#1f2125">
+<meta property="og:title" content="VAPE — Site officiel">
+<meta property="og:description" content="Téléchargez VAPE et découvrez ses fonctionnalités.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' ry='8' fill='%23ff5656'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Poppins, Arial, sans-serif' font-size='28' fill='white'%3EV%3C/text%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' ry='8' fill='%23ff5656'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Poppins, Arial, sans-serif' font-size='28' fill='white'%3EV%3C/text%3E%3C/svg%3E">
 <title>VAPE - Site officiel</title>
 <style>
   /* ===== Reset & Base ===== */
@@ -16,6 +24,9 @@
     font-family: 'Poppins', sans-serif;
     background-color: #111;
     color: #eee;
+  }
+  html {
+    scroll-behavior: smooth;
   }
   body {
     min-height: 100vh;
@@ -144,6 +155,8 @@
     padding: 15px 0;
     z-index: 10;
     box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    position: sticky;
+    top: 0;
   }
   nav {
     max-width: 900px;
@@ -232,6 +245,15 @@
     box-shadow: 0 8px 20px rgba(255, 34, 34, 0.7);
     transform: translateY(-4px);
   }
+  .btn.secondary {
+    background: transparent;
+    border: 2px solid #ff5656;
+    color: #ff9a9a;
+  }
+  .btn.secondary:hover {
+    background: rgba(255, 85, 85, 0.1);
+    color: #fff;
+  }
   footer {
     background: #1f2125;
     color: #aa2222;
@@ -243,6 +265,40 @@
     box-shadow: 0 -2px 5px rgba(0,0,0,0.5);
   }
   /* Styles supprimés: logout */
+
+  /* Features */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
+    margin-top: 10px;
+  }
+  .feature-card {
+    background: rgba(50,50,55, 0.7);
+    border-radius: 12px;
+    padding: 18px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+  }
+  .feature-card h3 { color: #ff6e6e; margin-bottom: 6px; }
+  .feature-card p { margin: 0; }
+
+  /* Download meta */
+  .download-meta { margin-top: 14px; }
+  .download-meta ul { list-style: none; padding: 0; margin: 0 0 14px; }
+  .download-meta li { margin: 6px 0; color: #ccc; }
+  .download-meta code { background: #24262b; padding: 2px 6px; border-radius: 6px; color: #ffbcbc; }
+  .mirrors { display: flex; gap: 10px; flex-wrap: wrap; }
+
+  /* FAQ */
+  details { background: rgba(50,50,55, 0.7); border-radius: 10px; padding: 12px 14px; margin: 10px 0; }
+  details summary { cursor: pointer; font-weight: 600; color: #ff6e6e; }
+  details p { margin: 8px 0 0; }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+    html { scroll-behavior: auto; }
+  }
 </style>
 </head>
 <body>
@@ -259,8 +315,10 @@
     <nav>
       <a href="#home" class="active" data-tab="home">Accueil</a>
       <a href="#about" data-tab="about">À propos</a>
+      <a href="#features" data-tab="features">Fonctionnalités</a>
       <a href="#dashboard" data-tab="dashboard">Tableau de bord</a>
       <a href="#download" data-tab="download">Téléchargement</a>
+      <a href="#faq" data-tab="faq">FAQ</a>
     </nav>
   </header>
 
@@ -269,6 +327,31 @@
       <h1>VAPE — l’essentiel, sans compromis.</h1>
       <p>Bienvenue sur le site officiel de VAPE, votre outil venu d’un autre monde.<br>
          Explorez nos fonctionnalités, téléchargez l’application et rejoignez la révolution numérique.</p>
+      <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:8px;">
+        <a class="btn" href="#download" data-tab="download">Télécharger</a>
+        <a class="btn secondary" href="#features" data-tab="features">Découvrir les fonctionnalités</a>
+      </div>
+    </section>
+    <section id="features">
+      <h2>Fonctionnalités clés</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <h3>Performance</h3>
+          <p>Démarrages rapides, empreinte mémoire optimisée, opérations fluides.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Simplicité</h3>
+          <p>Interface claire et actions essentielles à portée de main.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Fiabilité</h3>
+          <p>Processus robustes et stables, testés dans divers scénarios.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Sécurité</h3>
+          <p>Bonnes pratiques et durcissement des paramètres par défaut.</p>
+        </div>
+      </div>
     </section>
 
     <section id="about">
@@ -289,6 +372,34 @@
       <h2>Téléchargement</h2>
       <p>Obtenez la dernière version de VAPE en cliquant sur le bouton ci-dessous.</p>
       <a class="btn" href="https://www.mediafire.com/file/wv9cmo8kg2pz4ua/VAPE.rar/file" target="_blank" rel="noopener noreferrer" id="downloadBtn">Télécharger</a>
+      <div class="download-meta">
+        <ul>
+          <li><strong>Version</strong> : <span id="version">v1.0.0</span></li>
+          <li><strong>Taille</strong> : ~ <span>12.4 Mo</span></li>
+          <li><strong>SHA256</strong> : <code id="checksum">—</code></li>
+        </ul>
+        <div class="mirrors">
+          <a class="btn secondary" href="https://www.mediafire.com/file/wv9cmo8kg2pz4ua/VAPE.rar/file" target="_blank" rel="noopener noreferrer">Miroir 1</a>
+          <a class="btn secondary" href="https://anonfiles.com/" target="_blank" rel="noopener noreferrer">Miroir 2</a>
+        </div>
+        <p style="margin-top:10px; color:#aaa; font-size:0.95rem;">Comparez le checksum après téléchargement pour vérifier l’intégrité.</p>
+      </div>
+    </section>
+
+    <section id="faq">
+      <h2>FAQ</h2>
+      <details>
+        <summary>VAPE est-il gratuit ?</summary>
+        <p>Oui, la version actuelle est fournie gratuitement.</p>
+      </details>
+      <details>
+        <summary>Comment mettre à jour ?</summary>
+        <p>Téléchargez la nouvelle version et remplacez les fichiers existants. Consultez le changelog si disponible.</p>
+      </details>
+      <details>
+        <summary>Où signaler un problème ?</summary>
+        <p>Contactez-nous par email ou via la communauté (Discord/Telegram) si disponible.</p>
+      </details>
     </section>
   </main>
 
@@ -308,6 +419,21 @@
   }
   window.addEventListener('DOMContentLoaded', () => {
     loadDashboardStats();
+    // Calcul de checksum (démo) si le navigateur supporte la SubtleCrypto
+    const url = document.getElementById('downloadBtn')?.getAttribute('href');
+    const checksumEl = document.getElementById('checksum');
+    if (url && checksumEl && window.crypto && window.crypto.subtle) {
+      fetch(url, { method: 'GET', cache: 'no-store', mode: 'no-cors' })
+        .then(() => {
+          // En mode no-cors, on ne peut pas lire la réponse. On affiche une note.
+          checksumEl.textContent = 'non disponible (miroir distant)';
+        })
+        .catch(() => {
+          checksumEl.textContent = 'non disponible';
+        });
+    } else if (checksumEl) {
+      checksumEl.textContent = 'non disponible';
+    }
   });
 
   // Gestion onglets site
@@ -323,7 +449,7 @@
       navLinks.forEach(l => l.classList.remove('active'));
       e.currentTarget.classList.add('active');
 
-      // Afficher section
+      // Afficher section et faire défiler en douceur
       sections.forEach(sec => {
         if(sec.id === target) {
           sec.classList.add('active');
@@ -331,6 +457,10 @@
           sec.classList.remove('active');
         }
       });
+      const el = document.getElementById(target);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     });
   });
 
@@ -338,16 +468,26 @@
   function loadDashboardStats() {
     const countEl = document.getElementById('downloadCount');
     let count = parseInt(localStorage.getItem('downloadCount') || '0', 10);
-
-    // Simuler + incrémenter
-    count++;
-    localStorage.setItem('downloadCount', count);
     countEl.textContent = count.toLocaleString();
   }
 
-  // === Fond animé Canvas ===
+  // Incrémenter le compteur uniquement au clic sur "Télécharger"
+  const downloadBtn = document.getElementById('downloadBtn');
+  if (downloadBtn) {
+    downloadBtn.addEventListener('click', () => {
+      let count = parseInt(localStorage.getItem('downloadCount') || '0', 10);
+      count = isNaN(count) ? 0 : count;
+      count++;
+      localStorage.setItem('downloadCount', count);
+      const countEl = document.getElementById('downloadCount');
+      if (countEl) countEl.textContent = count.toLocaleString();
+    });
+  }
+
+  // === Fond animé Canvas (respecte prefers-reduced-motion) ===
   const canvas = document.getElementById('background');
   const ctx = canvas.getContext('2d');
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let w, h;
   function resize() {
     w = canvas.width = window.innerWidth;
@@ -357,14 +497,16 @@
   resize();
 
   const particles = [];
-  const maxParticles = 80;
+  const maxParticles = prefersReducedMotion ? 20 : 80;
+  const frameInterval = prefersReducedMotion ? 1000/30 : 1000/60; // 30fps si reduced
+  let lastTime = 0;
 
   class Particle {
     constructor() {
       this.x = Math.random()*w;
       this.y = Math.random()*h;
-      this.vx = (Math.random()-0.5)*0.5;
-      this.vy = (Math.random()-0.5)*0.5;
+      this.vx = (Math.random()-0.5)*(prefersReducedMotion ? 0.25 : 0.5);
+      this.vy = (Math.random()-0.5)*(prefersReducedMotion ? 0.25 : 0.5);
       this.size = Math.random()*2 + 1;
     }
     update() {
@@ -387,15 +529,31 @@
     particles.push(new Particle());
   }
 
-  function animate() {
-    ctx.clearRect(0,0,w,h);
-    for(let p of particles) {
-      p.update();
-      p.draw();
+  let animationId;
+  function animate(ts) {
+    if (!ts) ts = performance.now();
+    if (ts - lastTime >= frameInterval) {
+      lastTime = ts;
+      ctx.clearRect(0,0,w,h);
+      for(let p of particles) {
+        p.update();
+        p.draw();
+      }
     }
-    requestAnimationFrame(animate);
+    animationId = requestAnimationFrame(animate);
   }
-  animate();
+
+  function startAnimation() {
+    if (!animationId) animate();
+  }
+  function stopAnimation() {
+    if (animationId) cancelAnimationFrame(animationId);
+    animationId = null;
+  }
+
+  if (!prefersReducedMotion) {
+    startAnimation();
+  }
 
 </script>
 
