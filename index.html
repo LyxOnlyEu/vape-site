@@ -1,9 +1,17 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" class="no-js">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>VAPE - Connexion & Site officiel</title>
+<meta name="description" content="VAPE — l’essentiel, sans compromis. Téléchargez la dernière version et découvrez les fonctionnalités.">
+<meta name="theme-color" content="#1f2125">
+<meta property="og:title" content="VAPE — Site officiel">
+<meta property="og:description" content="Téléchargez VAPE et découvrez ses fonctionnalités.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' ry='8' fill='%23ff5656'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Poppins, Arial, sans-serif' font-size='28' fill='white'%3EV%3C/text%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' ry='8' fill='%23ff5656'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Poppins, Arial, sans-serif' font-size='28' fill='white'%3EV%3C/text%3E%3C/svg%3E">
+<title>VAPE - Site officiel</title>
 <style>
   /* ===== Reset & Base ===== */
   * {
@@ -17,116 +25,42 @@
     background-color: #111;
     color: #eee;
   }
+  html {
+    scroll-behavior: smooth;
+  }
+  /* Skip link */
+  .skip-link {
+    position: absolute;
+    left: -999px;
+    top: -999px;
+    background: #ff5656;
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 6px;
+    z-index: 100;
+    text-decoration: none;
+    box-shadow: none;
+  }
+  .skip-link:focus {
+    left: 12px;
+    top: 12px;
+    box-shadow: 0 4px 10px rgba(255, 34, 34, 0.35);
+  }
+  /* Layout */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 16px;
+  }
   body {
     min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
   }
 
-  /* ===== Container Connexion ===== */
-  #authContainer {
-    background-color: #1a1a1a;
-    border-radius: 8px;
-    padding: 30px 35px;
-    width: 360px;
-    box-shadow: 0 0 8px rgba(255, 0, 0, 0.25);
-    box-sizing: border-box;
-  }
-  h2 {
-    margin-bottom: 28px;
-    font-weight: 500;
-    text-align: center;
-    font-size: 24px;
-    letter-spacing: 0.03em;
-  }
-  .form {
-    transition: opacity 0.4s ease, transform 0.4s ease;
-    position: relative;
-  }
-  .form.hidden {
-    opacity: 0;
-    transform: translateY(-20px);
-    height: 0;
-    overflow: hidden;
-    pointer-events: none;
-    position: absolute;
-    left: 0; right: 0;
-  }
-  .input-group {
-    position: relative;
-    margin-bottom: 22px;
-  }
-  .input-group svg {
-    position: absolute;
-    left: 14px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 20px;
-    height: 20px;
-    fill: #999;
-    pointer-events: none;
-  }
-  input[type="text"],
-  input[type="email"],
-  input[type="password"] {
-    width: 100%;
-    padding: 12px 14px 12px 44px;
-    background-color: #222;
-    border: none;
-    border-radius: 6px;
-    color: #eee;
-    font-size: 17px;
-    font-weight: 400;
-    outline-offset: 2px;
-    box-sizing: border-box;
-    transition: background-color 0.25s ease;
-  }
-  input[type="text"]:focus,
-  input[type="email"]:focus,
-  input[type="password"]:focus {
-    background-color: #2c2c2c;
-  }
-  button {
-    width: 100%;
-    background-color: #d32f2f;
-    border: none;
-    padding: 12px 0;
-    border-radius: 6px;
-    color: white;
-    font-weight: 500;
-    font-size: 18px;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-    user-select: none;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-  }
-  button:hover {
-    background-color: #b72b2b;
-    box-shadow: 0 0 8px rgba(255, 0, 0, 0.8);
-  }
-  .secondary-text {
-    margin-top: 20px;
-    font-size: 14px;
-    text-align: center;
-    color: #aaa;
-    user-select: none;
-  }
-  .secondary-text a {
-    color: #d32f2f;
-    text-decoration: none;
-    cursor: pointer;
-  }
-  .secondary-text a:hover {
-    text-decoration: underline;
-  }
+  /* Styles d'authentification supprimés */
 
   /* ===== Site Principal ===== */
   #siteContainer {
-    display: none;
+    display: flex;
     flex-direction: column;
     min-height: 100vh;
     width: 100%;
@@ -147,9 +81,11 @@
     padding: 15px 0;
     z-index: 10;
     box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    position: sticky;
+    top: 0;
   }
   nav {
-    max-width: 900px;
+    max-width: 1100px;
     margin: 0 auto;
     display: flex;
     justify-content: center;
@@ -176,17 +112,17 @@
     color: #ff5555;
     background: rgba(255, 85, 85, 0.12);
     transform: translateY(-3px);
-    box-shadow: 0 6px 12px rgba(255, 85, 85, 0.4);
+    box-shadow: 0 4px 10px rgba(255, 85, 85, 0.2);
   }
   main {
     flex-grow: 1;
-    max-width: 900px;
+    max-width: 1100px;
     margin: 40px auto 60px;
     background: rgba(40,40,45, 0.7);
     border-radius: 15px;
     padding: 30px 40px;
-    backdrop-filter: blur(12px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.7);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.55);
     color: #eee;
     z-index: 5;
   }
@@ -226,14 +162,23 @@
     padding: 12px 25px;
     border-radius: 30px;
     text-decoration: none;
-    box-shadow: 0 4px 12px rgba(255, 34, 34, 0.5);
-    transition: all 0.3s ease;
+    box-shadow: 0 3px 10px rgba(255, 34, 34, 0.35);
+    transition: background-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
     user-select: none;
   }
   .btn:hover {
     background: linear-gradient(45deg, #ff2222, #ff5656);
-    box-shadow: 0 8px 20px rgba(255, 34, 34, 0.7);
+    box-shadow: 0 6px 16px rgba(255, 34, 34, 0.45);
     transform: translateY(-4px);
+  }
+  .btn.secondary {
+    background: transparent;
+    border: 2px solid #ff5656;
+    color: #ff9a9a;
+  }
+  .btn.secondary:hover {
+    background: rgba(255, 85, 85, 0.1);
+    color: #fff;
   }
   footer {
     background: #1f2125;
@@ -245,263 +190,345 @@
     user-select: none;
     box-shadow: 0 -2px 5px rgba(0,0,0,0.5);
   }
-  /* Logout button style */
-  #logoutBtn {
-    margin: 15px auto;
-    background: #b33;
-    padding: 12px 28px;
-    border-radius: 24px;
-    border: none;
-    color: white;
-    font-weight: 600;
-    cursor: pointer;
-    display: block;
-    max-width: 180px;
-    user-select: none;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  /* Styles supprimés: logout */
+
+  /* Features */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
+    margin-top: 10px;
   }
-  #logoutBtn:hover {
-    background: #8a2222;
-    box-shadow: 0 0 8px rgba(255, 0, 0, 0.8);
+  .feature-card {
+    background: rgba(50,50,55, 0.7);
+    border-radius: 12px;
+    padding: 18px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+  }
+  .feature-card h3 { color: #ff6e6e; margin-bottom: 6px; }
+  .feature-card p { margin: 0; }
+
+  /* Download meta */
+  .download-meta { margin-top: 14px; }
+  .download-meta ul { list-style: none; padding: 0; margin: 0 0 14px; }
+  .download-meta li { margin: 6px 0; color: #ccc; }
+  .download-meta code { background: #24262b; padding: 2px 6px; border-radius: 6px; color: #ffbcbc; }
+  .mirrors { display: flex; gap: 10px; flex-wrap: wrap; }
+
+  /* FAQ */
+  details { background: rgba(50,50,55, 0.7); border-radius: 10px; padding: 12px 14px; margin: 10px 0; }
+  details summary { cursor: pointer; font-weight: 600; color: #ff6e6e; }
+  details p { margin: 8px 0 0; }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+    html { scroll-behavior: auto; }
+  }
+
+  /* No-JS fallback: afficher le contenu quand JS est désactivé */
+  html.no-js section { display: block; }
+
+  /* Mobile: menu toggle */
+  .menu-toggle {
+    display: none;
+    position: absolute;
+    right: 12px;
+    top: 10px;
+    background: transparent;
+    color: #eee;
+    border: 2px solid #444;
+    border-radius: 8px;
+    padding: 6px 10px;
+    font-size: 18px;
+    cursor: pointer;
+  }
+  @media (max-width: 700px) {
+    nav {
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+      padding: 10px 16px;
+    }
+    header.open nav { display: flex; }
+    .menu-toggle { display: block; }
+    main { margin: 20px auto 40px; padding: 20px; }
+    h1 { font-size: 2.2rem; }
+  }
+
+  /* Back to top */
+  #backToTop {
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+    z-index: 20;
+    display: none;
+    background: #ff5656;
+    color: #fff;
+    border: none;
+    border-radius: 24px;
+    padding: 10px 14px;
+    cursor: pointer;
+    box-shadow: 0 6px 14px rgba(255, 34, 34, 0.4);
+  }
+
+  /* Focus visible for accessibility */
+  a:focus-visible,
+  button:focus-visible,
+  .btn:focus-visible,
+  .menu-toggle:focus-visible,
+  nav a:focus-visible,
+  details summary:focus-visible,
+  #backToTop:focus-visible {
+    outline: 3px solid #ff9a9a;
+    outline-offset: 3px;
+    box-shadow: 0 0 0 3px rgba(255, 85, 85, 0.2);
   }
 </style>
 </head>
 <body>
 
-<!-- Conteneur Authentification -->
-<div id="authContainer" role="main" aria-label="Formulaire de connexion et inscription">
+<a href="#home" class="skip-link">Aller au contenu</a>
 
-  <!-- Formulaire Connexion -->
-  <form id="loginForm" class="form" aria-label="Formulaire de connexion" novalidate>
-    <h2>Connexion</h2>
-
-    <div class="input-group">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z"/></svg>
-      <input type="text" id="loginUsername" placeholder="Nom d'utilisateur" autocomplete="username" aria-label="Nom d'utilisateur" required />
-    </div>
-
-    <div class="input-group">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 8V6c0-2.8-2.2-5-5-5S7 3.2 7 6v2H5v14h14V8h-2zm-6-2c0-1.1.9-2 2-2s2 .9 2 2v2H11V6zm6 14H7v-8h10v8z"/></svg>
-      <input type="password" id="loginPassword" placeholder="Mot de passe" autocomplete="current-password" aria-label="Mot de passe" required />
-    </div>
-
-    <button type="submit">⚡ Se connecter</button>
-
-    <div class="secondary-text">
-      Vous n'avez pas de compte ? <a id="showSignup" href="#">Inscrivez-vous</a>
-    </div>
-  </form>
-
-  <!-- Formulaire Inscription -->
-  <form id="signupForm" class="form hidden" aria-label="Formulaire d'inscription" novalidate>
-    <h2>Inscription</h2>
-
-    <div class="input-group">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z"/></svg>
-      <input type="text" id="signupUsername" placeholder="Nom d'utilisateur" autocomplete="username" aria-label="Nom d'utilisateur" required />
-    </div>
-
-    <div class="input-group">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-      <input type="email" id="signupEmail" placeholder="Email" autocomplete="email" aria-label="Adresse email" required />
-    </div>
-
-    <div class="input-group">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 8V6c0-2.8-2.2-5-5-5S7 3.2 7 6v2H5v14h14V8h-2zm-6-2c0-1.1.9-2 2-2s2 .9 2 2v2H11V6zm6 14H7v-8h10v8z"/></svg>
-      <input type="password" id="signupPassword" placeholder="Mot de passe" autocomplete="new-password" aria-label="Mot de passe" required />
-    </div>
-
-    <div class="input-group">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 8V6c0-2.8-2.2-5-5-5S7 3.2 7 6v2H5v14h14V8h-2zm-6-2c0-1.1.9-2 2-2s2 .9 2 2v2H11V6zm6 14H7v-8h10v8z"/></svg>
-      <input type="password" id="signupPasswordConfirm" placeholder="Confirmer le mot de passe" autocomplete="new-password" aria-label="Confirmation du mot de passe" required />
-    </div>
-
-    <button type="submit">⚡ S'inscrire</button>
-
-    <div class="secondary-text">
-      Vous avez déjà un compte ? <a id="showLogin" href="#">Connectez-vous</a>
-    </div>
-  </form>
-
-</div>
+<!-- Authentification supprimée -->
 
 <!-- Conteneur Site -->
-<div id="siteContainer" aria-label="Site VAPE officiel">
+<div id="siteContainer">
 
   <!-- Fond animé -->
-  <canvas id="background"></canvas>
+  <canvas id="background" aria-hidden="true"></canvas>
 
   <header>
-    <nav>
+    <button class="menu-toggle" aria-label="Ouvrir/fermer le menu">☰ Menu</button>
+    <nav role="navigation" aria-label="Navigation principale">
       <a href="#home" class="active" data-tab="home">Accueil</a>
       <a href="#about" data-tab="about">À propos</a>
+      <a href="#features" data-tab="features">Fonctionnalités</a>
       <a href="#dashboard" data-tab="dashboard">Tableau de bord</a>
       <a href="#download" data-tab="download">Téléchargement</a>
+      <a href="#faq" data-tab="faq">FAQ</a>
     </nav>
   </header>
 
-  <main>
-    <section id="home" class="active">
-      <h1>VAPE — l’essentiel, sans compromis.</h1>
+  <main role="main">
+    <section id="home" class="active" aria-labelledby="home-title">
+      <h1 id="home-title">VAPE — l’essentiel, sans compromis.</h1>
       <p>Bienvenue sur le site officiel de VAPE, votre outil venu d’un autre monde.<br>
          Explorez nos fonctionnalités, téléchargez l’application et rejoignez la révolution numérique.</p>
+      <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:8px;">
+        <a class="btn" href="#download" data-tab="download">Télécharger</a>
+        <a class="btn secondary" href="#features" data-tab="features">Découvrir les fonctionnalités</a>
+      </div>
+    </section>
+    <section id="features" aria-labelledby="features-title">
+      <h2 id="features-title">Fonctionnalités clés</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <h3>Performance</h3>
+          <p>Démarrages rapides, empreinte mémoire optimisée, opérations fluides.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Simplicité</h3>
+          <p>Interface claire et actions essentielles à portée de main.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Fiabilité</h3>
+          <p>Processus robustes et stables, testés dans divers scénarios.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Sécurité</h3>
+          <p>Bonnes pratiques et durcissement des paramètres par défaut.</p>
+        </div>
+      </div>
     </section>
 
-    <section id="about">
-      <h2>À propos de VAPE</h2>
+    <section id="about" aria-labelledby="about-title">
+      <h2 id="about-title">À propos de VAPE</h2>
       <p>VAPE est une application puissante et intuitive conçue pour répondre à tous vos besoins numériques avec élégance et efficacité. 
          Notre équipe est dédiée à fournir des outils de qualité, simples et performants.</p>
       <p>Nous mettons un point d'honneur à allier design moderne et fonctionnalités avancées pour une expérience utilisateur optimale.</p>
     </section>
 
-    <section id="dashboard">
-      <h2>Tableau de bord</h2>
+    <section id="dashboard" aria-labelledby="dashboard-title">
+      <h2 id="dashboard-title">Tableau de bord</h2>
       <p>Nombre total de téléchargements :</p>
       <div id="downloadCount">0</div>
       <p>Statistiques en temps réel, mises à jour automatiques et analyses pour mieux vous servir.</p>
     </section>
 
-    <section id="download">
-      <h2>Téléchargement</h2>
+    <section id="download" aria-labelledby="download-title">
+      <h2 id="download-title">Téléchargement</h2>
       <p>Obtenez la dernière version de VAPE en cliquant sur le bouton ci-dessous.</p>
-      <a class="btn" href="https://www.mediafire.com/file/wv9cmo8kg2pz4ua/VAPE.rar/file" target="_blank" rel="noopener noreferrer" id="downloadBtn">Télécharger</a>
+      <a class="btn" href="https://www.mediafire.com/file/c48of8s7t06jqug/VAPE_autoclick.rar/file" target="_blank" rel="noopener noreferrer" id="downloadBtn">Télécharger</a>
+      <div class="download-meta">
+        <ul>
+          <li><strong>Version</strong> : <span id="version">v1.0.0</span></li>
+          <li><strong>Taille</strong> : ~ <span>12.4 Mo</span></li>
+          <li><strong>SHA256</strong> : <code id="checksum">—</code></li>
+        </ul>
+        <div class="mirrors">
+          <a class="btn secondary" href="https://www.mediafire.com/file/c48of8s7t06jqug/VAPE_autoclick.rar/file" target="_blank" rel="noopener noreferrer">Miroir 1</a>
+          <a class="btn secondary" href="https://www.mediafire.com/file/c48of8s7t06jqug/VAPE_autoclick.rar/file" target="_blank" rel="noopener noreferrer">Miroir 2</a>
+        </div>
+        <p style="margin-top:10px; color:#aaa; font-size:0.95rem;">Comparez le checksum après téléchargement pour vérifier l’intégrité.</p>
+      </div>
+    </section>
+
+    <section id="faq" aria-labelledby="faq-title">
+      <h2 id="faq-title">FAQ</h2>
+      <details>
+        <summary>VAPE est-il gratuit ?</summary>
+        <p>Oui, la version actuelle est fournie gratuitement.</p>
+      </details>
+      <details>
+        <summary>Comment mettre à jour ?</summary>
+        <p>Téléchargez la nouvelle version et remplacez les fichiers existants. Consultez le changelog si disponible.</p>
+      </details>
+      <details>
+        <summary>Où signaler un problème ?</summary>
+        <p>Contactez-nous par email ou via la communauté (Discord/Telegram) si disponible.</p>
+      </details>
     </section>
   </main>
 
-  <button id="logoutBtn" aria-label="Se déconnecter">Déconnexion</button>
+  
 
   <footer>
     &copy; 2025 VAPE. All rights reserved.
   </footer>
 </div>
 
+<button id="backToTop" aria-label="Revenir en haut">↑ Haut</button>
+
 <script>
-  // Gestion affichage form connexion / inscription avec animation
-  const loginForm = document.getElementById('loginForm');
-  const signupForm = document.getElementById('signupForm');
-  const showSignupLink = document.getElementById('showSignup');
-  const showLoginLink = document.getElementById('showLogin');
-  const authContainer = document.getElementById('authContainer');
+  // Authentification supprimée: afficher le site et initialiser le tableau de bord
   const siteContainer = document.getElementById('siteContainer');
-  const logoutBtn = document.getElementById('logoutBtn');
-
-  showSignupLink.addEventListener('click', e => {
-    e.preventDefault();
-    loginForm.classList.add('hidden');
-    signupForm.classList.remove('hidden');
-  });
-
-  showLoginLink.addEventListener('click', e => {
-    e.preventDefault();
-    signupForm.classList.add('hidden');
-    loginForm.classList.remove('hidden');
-  });
-
-  // Sauvegarde utilisateur dans localStorage
-  function saveUser(user) {
-    const users = JSON.parse(localStorage.getItem('users') || '{}');
-    users[user.username] = user;
-    localStorage.setItem('users', JSON.stringify(users));
-  }
-  // Récupérer utilisateur
-  function getUser(username) {
-    const users = JSON.parse(localStorage.getItem('users') || '{}');
-    return users[username];
-  }
-
-  // Validation formulaire inscription
-  signupForm.addEventListener('submit', e => {
-    e.preventDefault();
-
-    const username = document.getElementById('signupUsername').value.trim();
-    const email = document.getElementById('signupEmail').value.trim();
-    const password = document.getElementById('signupPassword').value;
-    const passwordConfirm = document.getElementById('signupPasswordConfirm').value;
-
-    if(username.length < 3) return alert("Nom d'utilisateur trop court (3 caractères minimum).");
-    if(!email.includes('@') || email.length < 6) return alert("Email invalide.");
-    if(password.length < 6) return alert("Mot de passe trop court (6 caractères minimum).");
-    if(password !== passwordConfirm) return alert("Les mots de passe ne correspondent pas.");
-
-    if(getUser(username)) {
-      return alert("Ce nom d'utilisateur est déjà utilisé.");
-    }
-
-    saveUser({username, email, password});
-    alert("Inscription réussie, vous pouvez maintenant vous connecter.");
-    signupForm.reset();
-    signupForm.classList.add('hidden');
-    loginForm.classList.remove('hidden');
-  });
-
-  // Validation formulaire connexion
-  loginForm.addEventListener('submit', e => {
-    e.preventDefault();
-
-    const username = document.getElementById('loginUsername').value.trim();
-    const password = document.getElementById('loginPassword').value;
-
-    const user = getUser(username);
-    if(!user || user.password !== password) {
-      return alert("Nom d'utilisateur ou mot de passe incorrect.");
-    }
-
-    // Afficher site principal
-    authContainer.style.display = 'none';
+  document.body.style.overflow = 'auto';
+  if (siteContainer) {
     siteContainer.style.display = 'flex';
-    document.body.style.overflow = 'auto';
+  }
+  window.addEventListener('DOMContentLoaded', () => {
+    // JS enabled
+    try { document.documentElement.classList.remove('no-js'); } catch(e) {}
     loadDashboardStats();
-
+    // Activer l'onglet selon le hash initial (si présent)
+    var initialHash = window.location.hash ? window.location.hash.replace('#','') : '';
+    if (initialHash) {
+      activateTab(initialHash);
+    }
+    // Calcul de checksum (démo) si le navigateur supporte la SubtleCrypto
+    var btn = document.getElementById('downloadBtn');
+    var url = btn ? btn.getAttribute('href') : null;
+    var checksumEl = document.getElementById('checksum');
+    if (url && checksumEl && window.crypto && window.crypto.subtle && window.fetch) {
+      fetch(url, { method: 'GET', cache: 'no-store', mode: 'no-cors' })
+        .then(() => {
+          // En mode no-cors, on ne peut pas lire la réponse. On affiche une note.
+          checksumEl.textContent = 'non disponible (miroir distant)';
+        })
+        .catch(() => {
+          checksumEl.textContent = 'non disponible';
+        });
+    } else if (checksumEl) {
+      checksumEl.textContent = 'non disponible';
+    }
   });
 
-  // Logout
-  logoutBtn.addEventListener('click', () => {
-    siteContainer.style.display = 'none';
-    authContainer.style.display = 'block';
-    loginForm.reset();
-    signupForm.reset();
-    signupForm.classList.add('hidden');
-    loginForm.classList.remove('hidden');
-  });
-
-  // Gestion onglets site
+  // Gestion onglets site (supporte tout élément avec data-tab)
   const navLinks = document.querySelectorAll('nav a');
   const sections = document.querySelectorAll('main section');
+  const tabTriggers = document.querySelectorAll('[data-tab]');
 
-  navLinks.forEach(link => {
-    link.addEventListener('click', e => {
+  function activateTab(target) {
+    navLinks.forEach(l => l.classList.remove('active'));
+    const navTarget = document.querySelector(`nav a[data-tab="${target}"]`);
+    if (navTarget) navTarget.classList.add('active');
+
+    sections.forEach(sec => {
+      if (sec.id === target) {
+        sec.classList.add('active');
+      } else {
+        sec.classList.remove('active');
+      }
+    });
+
+    const el = document.getElementById(target);
+    if (el && el.scrollIntoView) {
+      try {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } catch (_) {
+        el.scrollIntoView();
+      }
+    }
+
+    const headerEl = document.querySelector('header');
+    if (headerEl) headerEl.classList.remove('open');
+  }
+
+  tabTriggers.forEach(trigger => {
+    trigger.addEventListener('click', e => {
       e.preventDefault();
       const target = e.currentTarget.getAttribute('data-tab');
-
-      // Activer lien
-      navLinks.forEach(l => l.classList.remove('active'));
-      e.currentTarget.classList.add('active');
-
-      // Afficher section
-      sections.forEach(sec => {
-        if(sec.id === target) {
-          sec.classList.add('active');
-        } else {
-          sec.classList.remove('active');
-        }
-      });
+      if (target) activateTab(target);
     });
   });
+
+  // Activer l'onglet lors des changements de hash (navigation navigateur)
+  window.addEventListener('hashchange', function() {
+    var hash = window.location.hash ? window.location.hash.replace('#','') : '';
+    if (hash) activateTab(hash);
+  });
+
+  // Mobile menu toggle
+  const headerEl = document.querySelector('header');
+  const toggleBtn = document.querySelector('.menu-toggle');
+  if (toggleBtn && headerEl) {
+    toggleBtn.addEventListener('click', () => {
+      headerEl.classList.toggle('open');
+    });
+  }
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 700 && headerEl) headerEl.classList.remove('open');
+  });
+
+  // Back to top
+  const backToTop = document.getElementById('backToTop');
+  function onScroll() {
+    if (!backToTop) return;
+    const y = window.scrollY || document.documentElement.scrollTop;
+    backToTop.style.display = y > 300 ? 'block' : 'none';
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  if (backToTop) {
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
 
   // Tableau de bord - simulation compteur
   function loadDashboardStats() {
     const countEl = document.getElementById('downloadCount');
     let count = parseInt(localStorage.getItem('downloadCount') || '0', 10);
-
-    // Simuler + incrémenter
-    count++;
-    localStorage.setItem('downloadCount', count);
     countEl.textContent = count.toLocaleString();
   }
 
-  // === Fond animé Canvas ===
+  // Incrémenter le compteur uniquement au clic sur "Télécharger"
+  const downloadBtn = document.getElementById('downloadBtn');
+  if (downloadBtn) {
+    downloadBtn.addEventListener('click', () => {
+      let count = parseInt(localStorage.getItem('downloadCount') || '0', 10);
+      count = isNaN(count) ? 0 : count;
+      count++;
+      localStorage.setItem('downloadCount', count);
+      const countEl = document.getElementById('downloadCount');
+      if (countEl) countEl.textContent = count.toLocaleString();
+    });
+  }
+
+  // === Fond animé Canvas (respecte prefers-reduced-motion) ===
   const canvas = document.getElementById('background');
   const ctx = canvas.getContext('2d');
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let w, h;
   function resize() {
     w = canvas.width = window.innerWidth;
@@ -511,14 +538,21 @@
   resize();
 
   const particles = [];
-  const maxParticles = 80;
+  function getMaxParticles() {
+    const base = prefersReducedMotion ? 20 : 80;
+    if (w < 400) return prefersReducedMotion ? 8 : 30;
+    if (w < 700) return prefersReducedMotion ? 12 : 40;
+    return base;
+  }
+  const frameInterval = prefersReducedMotion ? 1000/30 : 1000/60; // 30fps si reduced
+  let lastTime = 0;
 
   class Particle {
     constructor() {
       this.x = Math.random()*w;
       this.y = Math.random()*h;
-      this.vx = (Math.random()-0.5)*0.5;
-      this.vy = (Math.random()-0.5)*0.5;
+      this.vx = (Math.random()-0.5)*(prefersReducedMotion ? 0.25 : 0.5);
+      this.vy = (Math.random()-0.5)*(prefersReducedMotion ? 0.25 : 0.5);
       this.size = Math.random()*2 + 1;
     }
     update() {
@@ -537,19 +571,59 @@
     }
   }
 
-  for(let i=0; i<maxParticles; i++) {
-    particles.push(new Particle());
+  function adjustParticles() {
+    const target = getMaxParticles();
+    if (particles.length > target) {
+      particles.length = target;
+    } else {
+      for (let i = particles.length; i < target; i++) {
+        particles.push(new Particle());
+      }
+    }
   }
 
-  function animate() {
-    ctx.clearRect(0,0,w,h);
-    for(let p of particles) {
-      p.update();
-      p.draw();
+  adjustParticles();
+
+  let animationId;
+  function animate(ts) {
+    if (!ts) ts = performance.now();
+    if (ts - lastTime >= frameInterval) {
+      lastTime = ts;
+      ctx.clearRect(0,0,w,h);
+      for(let p of particles) {
+        p.update();
+        p.draw();
+      }
     }
-    requestAnimationFrame(animate);
+    animationId = requestAnimationFrame(animate);
   }
-  animate();
+
+  function startAnimation() {
+    if (!animationId) animate();
+  }
+  function stopAnimation() {
+    if (animationId) cancelAnimationFrame(animationId);
+    animationId = null;
+  }
+
+  if (!prefersReducedMotion) {
+    startAnimation();
+  }
+
+  // Adapter le nombre de particules au redimensionnement
+  window.addEventListener('resize', () => {
+    resize();
+    adjustParticles();
+  });
+
+  // Mettre en pause/reprendre l'animation selon la visibilité de l'onglet
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      stopAnimation();
+    } else if (!prefersReducedMotion) {
+      startAnimation();
+    }
+  });
 
 </script>
 
