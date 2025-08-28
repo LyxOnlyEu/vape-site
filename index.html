@@ -28,6 +28,24 @@
   html {
     scroll-behavior: smooth;
   }
+  /* Skip link */
+  .skip-link {
+    position: absolute;
+    left: -999px;
+    top: -999px;
+    background: #ff5656;
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 6px;
+    z-index: 100;
+    text-decoration: none;
+    box-shadow: none;
+  }
+  .skip-link:focus {
+    left: 12px;
+    top: 12px;
+    box-shadow: 0 4px 10px rgba(255, 34, 34, 0.35);
+  }
   /* Layout */
   .container {
     max-width: 1100px;
@@ -254,13 +272,15 @@
 </head>
 <body>
 
+<a href="#home" class="skip-link">Aller au contenu</a>
+
 <!-- Authentification supprimée -->
 
 <!-- Conteneur Site -->
-<div id="siteContainer" aria-label="Site VAPE officiel">
+<div id="siteContainer">
 
   <!-- Fond animé -->
-  <canvas id="background"></canvas>
+  <canvas id="background" aria-hidden="true"></canvas>
 
   <header>
     <button class="menu-toggle" aria-label="Ouvrir/fermer le menu">☰ Menu</button>
