@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>VAPE - Connexion & Site officiel</title>
+<title>VAPE - Site officiel</title>
 <style>
   /* ===== Reset & Base ===== */
   * {
@@ -19,9 +19,6 @@
   }
   body {
     min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
   }
 
   /* ===== Container Connexion ===== */
@@ -126,7 +123,7 @@
 
   /* ===== Site Principal ===== */
   #siteContainer {
-    display: none;
+    display: flex;
     flex-direction: column;
     min-height: 100vh;
     width: 100%;
@@ -245,85 +242,12 @@
     user-select: none;
     box-shadow: 0 -2px 5px rgba(0,0,0,0.5);
   }
-  /* Logout button style */
-  #logoutBtn {
-    margin: 15px auto;
-    background: #b33;
-    padding: 12px 28px;
-    border-radius: 24px;
-    border: none;
-    color: white;
-    font-weight: 600;
-    cursor: pointer;
-    display: block;
-    max-width: 180px;
-    user-select: none;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-  }
-  #logoutBtn:hover {
-    background: #8a2222;
-    box-shadow: 0 0 8px rgba(255, 0, 0, 0.8);
-  }
+  /* Styles supprimés: logout */
 </style>
 </head>
 <body>
 
-<!-- Conteneur Authentification -->
-<div id="authContainer" role="main" aria-label="Formulaire de connexion et inscription">
-
-  <!-- Formulaire Connexion -->
-  <form id="loginForm" class="form" aria-label="Formulaire de connexion" novalidate>
-    <h2>Connexion</h2>
-
-    <div class="input-group">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z"/></svg>
-      <input type="text" id="loginUsername" placeholder="Nom d'utilisateur" autocomplete="username" aria-label="Nom d'utilisateur" required />
-    </div>
-
-    <div class="input-group">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 8V6c0-2.8-2.2-5-5-5S7 3.2 7 6v2H5v14h14V8h-2zm-6-2c0-1.1.9-2 2-2s2 .9 2 2v2H11V6zm6 14H7v-8h10v8z"/></svg>
-      <input type="password" id="loginPassword" placeholder="Mot de passe" autocomplete="current-password" aria-label="Mot de passe" required />
-    </div>
-
-    <button type="submit">⚡ Se connecter</button>
-
-    <div class="secondary-text">
-      Vous n'avez pas de compte ? <a id="showSignup" href="#">Inscrivez-vous</a>
-    </div>
-  </form>
-
-  <!-- Formulaire Inscription -->
-  <form id="signupForm" class="form hidden" aria-label="Formulaire d'inscription" novalidate>
-    <h2>Inscription</h2>
-
-    <div class="input-group">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z"/></svg>
-      <input type="text" id="signupUsername" placeholder="Nom d'utilisateur" autocomplete="username" aria-label="Nom d'utilisateur" required />
-    </div>
-
-    <div class="input-group">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-      <input type="email" id="signupEmail" placeholder="Email" autocomplete="email" aria-label="Adresse email" required />
-    </div>
-
-    <div class="input-group">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 8V6c0-2.8-2.2-5-5-5S7 3.2 7 6v2H5v14h14V8h-2zm-6-2c0-1.1.9-2 2-2s2 .9 2 2v2H11V6zm6 14H7v-8h10v8z"/></svg>
-      <input type="password" id="signupPassword" placeholder="Mot de passe" autocomplete="new-password" aria-label="Mot de passe" required />
-    </div>
-
-    <div class="input-group">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 8V6c0-2.8-2.2-5-5-5S7 3.2 7 6v2H5v14h14V8h-2zm-6-2c0-1.1.9-2 2-2s2 .9 2 2v2H11V6zm6 14H7v-8h10v8z"/></svg>
-      <input type="password" id="signupPasswordConfirm" placeholder="Confirmer le mot de passe" autocomplete="new-password" aria-label="Confirmation du mot de passe" required />
-    </div>
-
-    <button type="submit">⚡ S'inscrire</button>
-
-    <div class="secondary-text">
-      Vous avez déjà un compte ? <a id="showLogin" href="#">Connectez-vous</a>
-    </div>
-  </form>
-
-</div>
+<!-- Authentification supprimée -->
 
 <!-- Conteneur Site -->
 <div id="siteContainer" aria-label="Site VAPE officiel">
@@ -368,7 +292,7 @@
     </section>
   </main>
 
-  <button id="logoutBtn" aria-label="Se déconnecter">Déconnexion</button>
+  
 
   <footer>
     &copy; 2025 VAPE. All rights reserved.
@@ -376,92 +300,14 @@
 </div>
 
 <script>
-  // Gestion affichage form connexion / inscription avec animation
-  const loginForm = document.getElementById('loginForm');
-  const signupForm = document.getElementById('signupForm');
-  const showSignupLink = document.getElementById('showSignup');
-  const showLoginLink = document.getElementById('showLogin');
-  const authContainer = document.getElementById('authContainer');
+  // Authentification supprimée: afficher le site et initialiser le tableau de bord
   const siteContainer = document.getElementById('siteContainer');
-  const logoutBtn = document.getElementById('logoutBtn');
-
-  showSignupLink.addEventListener('click', e => {
-    e.preventDefault();
-    loginForm.classList.add('hidden');
-    signupForm.classList.remove('hidden');
-  });
-
-  showLoginLink.addEventListener('click', e => {
-    e.preventDefault();
-    signupForm.classList.add('hidden');
-    loginForm.classList.remove('hidden');
-  });
-
-  // Sauvegarde utilisateur dans localStorage
-  function saveUser(user) {
-    const users = JSON.parse(localStorage.getItem('users') || '{}');
-    users[user.username] = user;
-    localStorage.setItem('users', JSON.stringify(users));
-  }
-  // Récupérer utilisateur
-  function getUser(username) {
-    const users = JSON.parse(localStorage.getItem('users') || '{}');
-    return users[username];
-  }
-
-  // Validation formulaire inscription
-  signupForm.addEventListener('submit', e => {
-    e.preventDefault();
-
-    const username = document.getElementById('signupUsername').value.trim();
-    const email = document.getElementById('signupEmail').value.trim();
-    const password = document.getElementById('signupPassword').value;
-    const passwordConfirm = document.getElementById('signupPasswordConfirm').value;
-
-    if(username.length < 3) return alert("Nom d'utilisateur trop court (3 caractères minimum).");
-    if(!email.includes('@') || email.length < 6) return alert("Email invalide.");
-    if(password.length < 6) return alert("Mot de passe trop court (6 caractères minimum).");
-    if(password !== passwordConfirm) return alert("Les mots de passe ne correspondent pas.");
-
-    if(getUser(username)) {
-      return alert("Ce nom d'utilisateur est déjà utilisé.");
-    }
-
-    saveUser({username, email, password});
-    alert("Inscription réussie, vous pouvez maintenant vous connecter.");
-    signupForm.reset();
-    signupForm.classList.add('hidden');
-    loginForm.classList.remove('hidden');
-  });
-
-  // Validation formulaire connexion
-  loginForm.addEventListener('submit', e => {
-    e.preventDefault();
-
-    const username = document.getElementById('loginUsername').value.trim();
-    const password = document.getElementById('loginPassword').value;
-
-    const user = getUser(username);
-    if(!user || user.password !== password) {
-      return alert("Nom d'utilisateur ou mot de passe incorrect.");
-    }
-
-    // Afficher site principal
-    authContainer.style.display = 'none';
+  document.body.style.overflow = 'auto';
+  if (siteContainer) {
     siteContainer.style.display = 'flex';
-    document.body.style.overflow = 'auto';
+  }
+  window.addEventListener('DOMContentLoaded', () => {
     loadDashboardStats();
-
-  });
-
-  // Logout
-  logoutBtn.addEventListener('click', () => {
-    siteContainer.style.display = 'none';
-    authContainer.style.display = 'block';
-    loginForm.reset();
-    signupForm.reset();
-    signupForm.classList.add('hidden');
-    loginForm.classList.remove('hidden');
   });
 
   // Gestion onglets site
