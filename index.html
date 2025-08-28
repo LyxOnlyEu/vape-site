@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" class="no-js">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -226,6 +226,9 @@
     html { scroll-behavior: auto; }
   }
 
+  /* No-JS fallback: afficher le contenu quand JS est désactivé */
+  html.no-js section { display: block; }
+
   /* Mobile: menu toggle */
   .menu-toggle {
     display: none;
@@ -405,6 +408,8 @@
     siteContainer.style.display = 'flex';
   }
   window.addEventListener('DOMContentLoaded', () => {
+    // JS enabled
+    try { document.documentElement.classList.remove('no-js'); } catch(e) {}
     loadDashboardStats();
     // Activer l'onglet selon le hash initial (si présent)
     var initialHash = window.location.hash ? window.location.hash.replace('#','') : '';
