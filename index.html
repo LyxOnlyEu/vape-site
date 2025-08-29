@@ -4,13 +4,13 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="description" content="VAPE Autoclick pour Minecraft — autoclicker précis, personnalisable, et capable de bypass certaines protections. Téléchargez la dernière version et découvrez ses fonctionnalités.">
-<meta name="theme-color" content="#1f2125">
+<meta name="theme-color" content="#251433">
 <meta property="og:title" content="VAPE Autoclick pour Minecraft — Site officiel">
 <meta property="og:description" content="Autoclicker simple, précis et personnalisable pour Minecraft, avec mécanismes de bypass de certaines protections.">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' ry='8' fill='%23ff5656'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Poppins, Arial, sans-serif' font-size='28' fill='white'%3EV%3C/text%3E%3C/svg%3E">
-<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' ry='8' fill='%23ff5656'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Poppins, Arial, sans-serif' font-size='28' fill='white'%3EV%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' ry='8' fill='%237c3aed'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Poppins, Arial, sans-serif' font-size='28' fill='white'%3EV%3C/text%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' ry='8' fill='%237c3aed'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Poppins, Arial, sans-serif' font-size='28' fill='white'%3EV%3C/text%3E%3C/svg%3E">
 <title>VAPE Autoclick - Site officiel</title>
 <style>
   /* ===== Reset & Base ===== */
@@ -59,7 +59,7 @@
     flex-direction: column;
     min-height: 100vh;
     width: 100%;
-    background: #1f2125;
+    background: #140a1f;
     font-family: 'Poppins', sans-serif;
     color: #ddd;
   }
@@ -69,10 +69,10 @@
     width: 100vw;
     height: 100vh;
     z-index: 0;
-    background: #1f2125;
+    background: #140a1f;
   }
   header {
-    background: linear-gradient(90deg, #2c2f35, #25272c);
+    background: linear-gradient(90deg, #2a173c, #1d102a);
     padding: 15px 0;
     z-index: 10;
     box-shadow: 0 2px 5px rgba(0,0,0,0.5);
@@ -104,8 +104,8 @@
   }
   nav a:hover,
   nav a.active {
-    color: #ff5555;
-    background: rgba(255, 85, 85, 0.12);
+    color: #c084fc;
+    background: rgba(124, 58, 237, 0.15);
     transform: translateY(-3px);
     box-shadow: 0 4px 10px rgba(255, 85, 85, 0.2);
   }
@@ -113,7 +113,7 @@
     flex-grow: 1;
     max-width: 1100px;
     margin: 40px auto 60px;
-    background: rgba(40,40,45, 0.7);
+    background: rgba(32, 20, 48, 0.7);
     border-radius: 15px;
     padding: 30px 40px;
     backdrop-filter: blur(10px);
@@ -134,14 +134,14 @@
   }
   h1 {
     font-weight: 800;
-    color: #ff5a5a;
+    color: #c084fc;
     margin-bottom: 10px;
     font-size: 2.8rem;
     letter-spacing: 1.2px;
   }
   h2 {
     margin-bottom: 15px;
-    color: #ff6e6e;
+    color: #a78bfa;
   }
   p {
     line-height: 1.5;
@@ -151,7 +151,7 @@
   }
   .btn {
     display: inline-block;
-    background: linear-gradient(45deg, #ff5656, #ff2222);
+    background: linear-gradient(45deg, #7c3aed, #6d28d9);
     color: #fff;
     font-weight: 700;
     padding: 12px 25px;
@@ -162,22 +162,22 @@
     user-select: none;
   }
   .btn:hover {
-    background: linear-gradient(45deg, #ff2222, #ff5656);
+    background: linear-gradient(45deg, #6d28d9, #7c3aed);
     box-shadow: 0 6px 16px rgba(255, 34, 34, 0.45);
     transform: translateY(-4px);
   }
   .btn.secondary {
     background: transparent;
-    border: 2px solid #ff5656;
-    color: #ff9a9a;
+    border: 2px solid #7c3aed;
+    color: #d0bfff;
   }
   .btn.secondary:hover {
-    background: rgba(255, 85, 85, 0.1);
+    background: rgba(124, 58, 237, 0.12);
     color: #fff;
   }
   footer {
-    background: #1f2125;
-    color: #aa2222;
+    background: #140a1f;
+    color: #8b5cf6;
     text-align: center;
     padding: 15px 10px;
     font-weight: 600;
@@ -193,22 +193,15 @@
   .download-meta { margin-top: 14px; }
   .download-meta ul { list-style: none; padding: 0; margin: 0 0 14px; }
   .download-meta li { margin: 6px 0; color: #ccc; }
-  .download-meta code { background: #24262b; padding: 2px 6px; border-radius: 6px; color: #ffbcbc; }
+  .download-meta code { background: #221833; padding: 2px 6px; border-radius: 6px; color: #e9d5ff; }
   .mirrors { display: flex; gap: 10px; flex-wrap: wrap; }
 
   /* FAQ */
   details { background: rgba(50,50,55, 0.7); border-radius: 10px; padding: 12px 14px; margin: 10px 0; }
-  details summary { cursor: pointer; font-weight: 600; color: #ff6e6e; }
+  details summary { cursor: pointer; font-weight: 600; color: #a78bfa; }
   details p { margin: 8px 0 0; }
 
-  /* Account forms */
-  .auth-card { background: rgba(50,50,55, 0.7); border-radius: 12px; padding: 18px; box-shadow: 0 4px 12px rgba(0,0,0,0.35); max-width: 520px; }
-  .auth-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
-  .auth-grid label { display: block; font-weight: 600; margin-bottom: 6px; color: #ff9a9a; }
-  .auth-grid input { width: 100%; padding: 10px 12px; background: #222; border: 1px solid #333; border-radius: 8px; color: #eee; }
-  .auth-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
-  .muted { color: #aaa; font-size: 0.95rem; }
-  .role-badge { display: inline-block; padding: 4px 8px; border-radius: 999px; background: #263238; color: #9ad1ff; font-weight: 700; font-size: 0.85rem; }
+  
   /* Reduced motion */
   @media (prefers-reduced-motion: reduce) {
     * { animation: none !important; transition: none !important; }
@@ -252,7 +245,7 @@
     bottom: 16px;
     z-index: 20;
     display: none;
-    background: #ff5656;
+    background: #7c3aed;
     color: #fff;
     border: none;
     border-radius: 24px;
@@ -269,7 +262,7 @@
   nav a:focus-visible,
   details summary:focus-visible,
   #backToTop:focus-visible {
-    outline: 3px solid #ff9a9a;
+    outline: 3px solid #c084fc;
     outline-offset: 3px;
     box-shadow: 0 0 0 3px rgba(255, 85, 85, 0.2);
   }
@@ -281,19 +274,19 @@
     padding: 4px 8px;
     border-radius: 6px;
     border: 1px solid #444;
-    background: #23262b;
+    background: #21172f;
     color: #ddd;
     cursor: pointer;
     font-size: 0.9rem;
   }
-  .small-btn:hover { background: #2a2d33; }
+  .small-btn:hover { background: #2a1b40; }
 
   /* Mobile action bar */
   .action-bar {
     position: fixed;
     left: 0; right: 0; bottom: 0;
     display: none;
-    background: rgba(31,33,37,0.92);
+    background: rgba(26, 16, 39, 0.92);
     backdrop-filter: blur(8px);
     border-top: 1px solid #2b2e34;
     padding: 10px 14px calc(env(safe-area-inset-bottom, 0) + 10px);
@@ -324,7 +317,6 @@
       <a href="#guide" data-tab="guide">Guide</a>
       <a href="#roadmap" data-tab="roadmap">À venir</a>
       <a href="#download" data-tab="download">Téléchargement</a>
-      <a href="#account" data-tab="account" id="accountNav">Compte</a>
       <a href="#faq" data-tab="faq">FAQ</a>
     </nav>
   </header>
@@ -422,51 +414,7 @@
         <li>[ ] Mode sombre/clair automatique</li>
       </ul>
     </section>
-    <section id="account" aria-labelledby="account-title">
-      <h2 id="account-title">Compte</h2>
-      <div id="accountGuest" class="auth-card" style="display:none;">
-        <h3 style="margin-bottom:8px; color:#ff6e6e;">Connexion / Inscription</h3>
-        <div class="auth-grid">
-          <div>
-            <label for="authUsername">Nom d'utilisateur</label>
-            <input id="authUsername" type="text" placeholder="ex: Alex" autocomplete="username" />
-          </div>
-          <div>
-            <label for="authPassword">Mot de passe</label>
-            <input id="authPassword" type="password" placeholder="••••••••" autocomplete="current-password" />
-          </div>
-          <div>
-            <label for="authAdminCode">Code Admin (optionnel)</label>
-            <input id="authAdminCode" type="text" placeholder="Entrer le code pour rôle Admin" />
-          </div>
-        </div>
-        <div class="auth-actions">
-          <button id="btnLogin" class="btn" type="button">Se connecter</button>
-          <button id="btnRegister" class="btn secondary" type="button">S'inscrire</button>
-        </div>
-        <p class="muted" style="margin-top:6px;">Votre compte est stocké localement. Utilisez un mot de passe unique.</p>
-      </div>
-
-      <div id="accountUser" class="auth-card" style="display:none;">
-        <h3 style="margin-bottom:8px; color:#ff6e6e;">Profil</h3>
-        <p><strong>Utilisateur:</strong> <span id="profileUsername"></span> <span id="profileRole" class="role-badge"></span></p>
-        <div class="auth-grid" style="margin-top:10px;">
-          <div>
-            <label for="profileStatus">Statut</label>
-            <input id="profileStatus" type="text" placeholder="ex: member, admin" />
-          </div>
-          <div>
-            <label for="profileEmail">Email (optionnel)</label>
-            <input id="profileEmail" type="email" placeholder="ex: alex@mail.com" autocomplete="email" />
-          </div>
-        </div>
-        <div class="auth-actions">
-          <button id="btnSaveProfile" class="btn" type="button">Sauvegarder</button>
-          <button id="btnLogout" class="btn secondary" type="button">Se déconnecter</button>
-        </div>
-        <p class="muted" style="margin-top:6px;">Les modifications sont enregistrées dans votre navigateur.</p>
-      </div>
-    </section>
+    
   </main>
 
   
@@ -537,7 +485,7 @@
   const navLinks = document.querySelectorAll('nav a');
   const sections = document.querySelectorAll('main section');
   const tabTriggers = document.querySelectorAll('[data-tab]');
-  const accountNav = document.getElementById('accountNav');
+  
 
   function activateTab(target) {
     navLinks.forEach(l => l.classList.remove('active'));
@@ -719,124 +667,7 @@
     }
   });
 
-  // ===== Auth & Profil (localStorage) =====
-  const LS_USERS_KEY = 'va_users';
-  const LS_SESSION_KEY = 'va_session';
-  const ADMIN_INVITE_CODE = 'VAPE-ADMIN-2025'; // Code admin
-
-  function getUsers() {
-    try { return JSON.parse(localStorage.getItem(LS_USERS_KEY) || '{}'); } catch(_) { return {}; }
-  }
-  function saveUsers(map) {
-    localStorage.setItem(LS_USERS_KEY, JSON.stringify(map));
-  }
-  function getSession() {
-    try { return JSON.parse(localStorage.getItem(LS_SESSION_KEY) || 'null'); } catch(_) { return null; }
-  }
-  function setSession(username) {
-    if (username) localStorage.setItem(LS_SESSION_KEY, JSON.stringify({ username }));
-    else localStorage.removeItem(LS_SESSION_KEY);
-  }
-  async function hashPassword(plain) {
-    if (window.crypto && window.crypto.subtle && plain) {
-      const enc = new TextEncoder().encode(plain);
-      const buf = await crypto.subtle.digest('SHA-256', enc);
-      return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
-    }
-    return plain; // fallback
-  }
-
-  // Elements
-  const accountGuest = document.getElementById('accountGuest');
-  const accountUser = document.getElementById('accountUser');
-  const authUsername = document.getElementById('authUsername');
-  const authPassword = document.getElementById('authPassword');
-  const authAdminCode = document.getElementById('authAdminCode');
-  const btnLogin = document.getElementById('btnLogin');
-  const btnRegister = document.getElementById('btnRegister');
-  const profileUsername = document.getElementById('profileUsername');
-  const profileRole = document.getElementById('profileRole');
-  const profileStatus = document.getElementById('profileStatus');
-  const profileEmail = document.getElementById('profileEmail');
-  const btnSaveProfile = document.getElementById('btnSaveProfile');
-  const btnLogout = document.getElementById('btnLogout');
-
-  function refreshAccountUI() {
-    const session = getSession();
-    if (session && session.username) {
-      const users = getUsers();
-      const u = users[session.username];
-      if (u) {
-        if (accountGuest) accountGuest.style.display = 'none';
-        if (accountUser) accountUser.style.display = 'block';
-        if (profileUsername) profileUsername.textContent = u.username;
-        if (profileRole) profileRole.textContent = (u.role || 'member').toUpperCase();
-        if (profileStatus) profileStatus.value = u.status || '';
-        if (profileEmail) profileEmail.value = u.email || '';
-        return;
-      }
-    }
-    if (accountGuest) accountGuest.style.display = 'block';
-    if (accountUser) accountUser.style.display = 'none';
-  }
-
-  async function handleRegister() {
-    const username = (authUsername && authUsername.value.trim()) || '';
-    const password = (authPassword && authPassword.value) || '';
-    const code = (authAdminCode && authAdminCode.value.trim()) || '';
-    if (username.length < 3 || password.length < 6) { alert('Utilisateur ou mot de passe invalide.'); return; }
-    const users = getUsers();
-    if (users[username]) { alert('Utilisateur déjà existant.'); return; }
-    const passHash = await hashPassword(password);
-    const role = code === ADMIN_INVITE_CODE ? 'admin' : 'member';
-    users[username] = { username, passHash, role, status: '', email: '' };
-    saveUsers(users);
-    setSession(username);
-    refreshAccountUI();
-    alert('Inscription réussie. Connecté.');
-  }
-
-  async function handleLogin() {
-    const username = (authUsername && authUsername.value.trim()) || '';
-    const password = (authPassword && authPassword.value) || '';
-    if (!username || !password) { alert('Renseignez utilisateur et mot de passe.'); return; }
-    const users = getUsers();
-    const u = users[username];
-    if (!u) { alert('Utilisateur introuvable.'); return; }
-    const passHash = await hashPassword(password);
-    if (u.passHash !== passHash) { alert('Mot de passe incorrect.'); return; }
-    // Role elevation si code admin fourni à la connexion
-    const code = (authAdminCode && authAdminCode.value.trim()) || '';
-    if (code === ADMIN_INVITE_CODE && u.role !== 'admin') { u.role = 'admin'; saveUsers(users); }
-    setSession(username);
-    refreshAccountUI();
-    alert('Connecté.');
-  }
-
-  function handleSaveProfile() {
-    const session = getSession();
-    if (!session) return;
-    const users = getUsers();
-    const u = users[session.username];
-    if (!u) return;
-    u.status = (profileStatus && profileStatus.value.trim()) || '';
-    u.email = (profileEmail && profileEmail.value.trim()) || '';
-    saveUsers(users);
-    refreshAccountUI();
-  }
-
-  function handleLogout() {
-    setSession(null);
-    refreshAccountUI();
-  }
-
-  if (btnRegister) btnRegister.addEventListener('click', () => { handleRegister(); });
-  if (btnLogin) btnLogin.addEventListener('click', () => { handleLogin(); });
-  if (btnSaveProfile) btnSaveProfile.addEventListener('click', () => { handleSaveProfile(); });
-  if (btnLogout) btnLogout.addEventListener('click', () => { handleLogout(); });
-
-  // Init account UI
-  refreshAccountUI();
+  
 
 </script>
 
