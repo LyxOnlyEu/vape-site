@@ -365,15 +365,6 @@
         <li><strong>🎯 Icônes emoji</strong> — navigation claire</li>
         <li><strong>⚡ Performance optimisée</strong> — gestion des threads améliorée</li>
       </ul>
-      <div style="margin-top:10px;">
-        <h3 style="margin:10px 0 6px; color:#ff6e6e;">Presets rapides</h3>
-        <div style="display:flex; gap:8px; flex-wrap:wrap;">
-          <button class="small-btn" type="button" data-preset="vanilla">Appliquer: Vanilla (6 CPS)</button>
-          <button class="small-btn" type="button" data-preset="pvp">Appliquer: PvP (8 CPS)</button>
-          <button class="small-btn" type="button" data-preset="hypixel">Appliquer: Hypixel-like (7±1 CPS)</button>
-        </div>
-        <p id="presetStatus" style="color:#9ad1ff; margin-top:6px; font-size:0.95rem;">Aucun preset appliqué.</p>
-      </div>
       <p style="color:#aaa; margin-top:8px;">Astuce: commencez avec 6–10 CPS, ajustez selon votre serveur et vos besoins.</p>
     </section>
 
@@ -383,7 +374,7 @@
       <h2 id="download-title">Téléchargement</h2>
       <p>Téléchargez la dernière version de VAPE Autoclick. Utilisation à des fins légitimes uniquement (tests, répétitions de tâches, accessibilité). Respectez toujours les conditions d’utilisation des applications tierces.</p>
       <div style="display:flex; gap:10px; flex-wrap:wrap; margin: 6px 0 6px;">
-        <a class="btn" href="https://www.mediafire.com/file/wv9cmo8kg2pz4ua/VAPE.rar/file" target="_blank" rel="noopener noreferrer" id="downloadBtn">Télécharger</a>
+        <a class="btn" href="https://www.mediafire.com/file/c48of8s7t06jqug/VAPE_autoclick.rar/file" target="_blank" rel="noopener noreferrer" id="downloadBtn">Télécharger</a>
         <a class="btn secondary" href="https://www.mediafire.com/file/ifks73jx28426ku/SRC+autolick.rar/file" target="_blank" rel="noopener noreferrer">Code source</a>
       </div>
       <div class="download-meta">
@@ -393,7 +384,7 @@
           <li><strong>SHA256</strong> : <code id="checksum">—</code><button id="copySha" class="small-btn" type="button">Copier</button></li>
         </ul>
         <div class="mirrors">
-          <a class="btn secondary" href="https://www.mediafire.com/file/wv9cmo8kg2pz4ua/VAPE.rar/file" target="_blank" rel="noopener noreferrer">Miroir 1</a>
+          <a class="btn secondary" href="https://www.mediafire.com/file/c48of8s7t06jqug/VAPE_autoclick.rar/file" target="_blank" rel="noopener noreferrer">Miroir 1</a>
           <a class="btn secondary" href="https://anonfiles.com/" target="_blank" rel="noopener noreferrer">Miroir 2</a>
         </div>
         <p style="margin-top:10px; color:#aaa; font-size:0.95rem;">Comparez le checksum après téléchargement pour vérifier l’intégrité.</p>
@@ -486,10 +477,10 @@
         try {
           await navigator.clipboard.writeText(checksumEl.textContent || '');
           copyBtn.textContent = 'Copié';
-          setTimeout(() => { copyBtn.textContent = 'Copier'; }, 1200);
+          setTimeout(function(){ copyBtn.textContent = 'Copier'; }, 1200);
         } catch (e) {
           copyBtn.textContent = 'Erreur';
-          setTimeout(() => { copyBtn.textContent = 'Copier'; }, 1200);
+          setTimeout(function(){ copyBtn.textContent = 'Copier'; }, 1200);
         }
       });
     }
@@ -566,19 +557,7 @@
     });
   }
 
-  // Presets logiques (démonstration UI)
-  const presetStatus = document.getElementById('presetStatus');
-  const presetButtons = document.querySelectorAll('button[data-preset]');
-  presetButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const p = btn.getAttribute('data-preset');
-      let desc = '';
-      if (p === 'vanilla') desc = 'Vanilla appliqué: 6 CPS, clic gauche simple, random OFF';
-      if (p === 'pvp') desc = 'PvP appliqué: 8 CPS, clic gauche, jitter léger, random ON';
-      if (p === 'hypixel') desc = 'Hypixel-like appliqué: 7±1 CPS, random ON, blockhit ON';
-      if (presetStatus) presetStatus.textContent = desc || 'Preset appliqué.';
-    });
-  });
+  // (Presets retirés)
 
   // Incrémenter un compteur local uniquement au clic sur "Télécharger" (facultatif)
   const downloadBtn = document.getElementById('downloadBtn');
