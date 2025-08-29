@@ -9,8 +9,8 @@
 <meta property="og:description" content="Autoclicker simple, précis et personnalisable pour Minecraft, avec mécanismes de bypass de certaines protections.">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' ry='8' fill='%23ff5656'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Poppins, Arial, sans-serif' font-size='28' fill='white'%3EV%3C/text%3E%3C/svg%3E">
-<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' ry='8' fill='%23ff5656'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Poppins, Arial, sans-serif' font-size='28' fill='white'%3EV%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' ry='8' fill='%237c3aed'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Poppins, Arial, sans-serif' font-size='28' fill='white'%3EV%3C/text%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' ry='8' fill='%237c3aed'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Poppins, Arial, sans-serif' font-size='28' fill='white'%3EV%3C/text%3E%3C/svg%3E">
 <title>VAPE Autoclick - Site officiel</title>
 <style>
   /* ===== Reset & Base ===== */
@@ -33,7 +33,7 @@
     position: absolute;
     left: -999px;
     top: -999px;
-    background: #ff5656;
+    background: #7c3aed;
     color: #fff;
     padding: 8px 12px;
     border-radius: 6px;
@@ -44,7 +44,7 @@
   .skip-link:focus {
     left: 12px;
     top: 12px;
-    box-shadow: 0 4px 10px rgba(255, 34, 34, 0.35);
+    box-shadow: 0 4px 10px rgba(124, 58, 237, 0.35);
   }
   /* Layout */
   body {
@@ -79,12 +79,17 @@
     position: sticky;
     top: 0;
   }
+  header.scrolled {
+    background: rgba(44,47,53, 0.55);
+    backdrop-filter: blur(8px);
+  }
   nav {
     max-width: 1100px;
     margin: 0 auto;
     display: flex;
     justify-content: center;
     gap: 40px;
+    position: relative;
   }
   nav a {
     flex: 1;
@@ -104,10 +109,22 @@
   }
   nav a:hover,
   nav a.active {
-    color: #ff5555;
-    background: rgba(255, 85, 85, 0.12);
+    color: #c084fc;
+    background: rgba(124, 58, 237, 0.15);
     transform: translateY(-3px);
-    box-shadow: 0 4px 10px rgba(255, 85, 85, 0.2);
+    box-shadow: 0 4px 10px rgba(124, 58, 237, 0.2);
+  }
+  /* Tab indicator */
+  #navIndicator {
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    height: 3px;
+    width: 0;
+    background: #7c3aed;
+    border-radius: 3px;
+    transition: left 0.3s ease, width 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
   }
   main {
     flex-grow: 1;
@@ -134,14 +151,14 @@
   }
   h1 {
     font-weight: 800;
-    color: #ff5a5a;
+    color: #c084fc;
     margin-bottom: 10px;
     font-size: 2.8rem;
     letter-spacing: 1.2px;
   }
   h2 {
     margin-bottom: 15px;
-    color: #ff6e6e;
+    color: #a78bfa;
   }
   p {
     line-height: 1.5;
@@ -151,33 +168,33 @@
   }
   .btn {
     display: inline-block;
-    background: linear-gradient(45deg, #ff5656, #ff2222);
+    background: linear-gradient(45deg, #7c3aed, #6d28d9);
     color: #fff;
     font-weight: 700;
     padding: 12px 25px;
     border-radius: 30px;
     text-decoration: none;
-    box-shadow: 0 3px 10px rgba(255, 34, 34, 0.35);
+    box-shadow: 0 3px 10px rgba(124, 58, 237, 0.35);
     transition: background-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
     user-select: none;
   }
   .btn:hover {
-    background: linear-gradient(45deg, #ff2222, #ff5656);
-    box-shadow: 0 6px 16px rgba(255, 34, 34, 0.45);
+    background: linear-gradient(45deg, #6d28d9, #7c3aed);
+    box-shadow: 0 6px 16px rgba(124, 58, 237, 0.45);
     transform: translateY(-4px);
   }
   .btn.secondary {
     background: transparent;
-    border: 2px solid #ff5656;
-    color: #ff9a9a;
+    border: 2px solid #7c3aed;
+    color: #d0bfff;
   }
   .btn.secondary:hover {
-    background: rgba(255, 85, 85, 0.1);
+    background: rgba(124, 58, 237, 0.12);
     color: #fff;
   }
   footer {
     background: #1f2125;
-    color: #aa2222;
+    color: #8b5cf6;
     text-align: center;
     padding: 15px 10px;
     font-weight: 600;
@@ -193,14 +210,15 @@
   .download-meta { margin-top: 14px; }
   .download-meta ul { list-style: none; padding: 0; margin: 0 0 14px; }
   .download-meta li { margin: 6px 0; color: #ccc; }
-  .download-meta code { background: #24262b; padding: 2px 6px; border-radius: 6px; color: #ffbcbc; }
+  .download-meta code { background: #24262b; padding: 2px 6px; border-radius: 6px; color: #e9d5ff; }
   .mirrors { display: flex; gap: 10px; flex-wrap: wrap; }
 
   /* FAQ */
   details { background: rgba(50,50,55, 0.7); border-radius: 10px; padding: 12px 14px; margin: 10px 0; }
-  details summary { cursor: pointer; font-weight: 600; color: #ff6e6e; }
+  details summary { cursor: pointer; font-weight: 600; color: #a78bfa; }
   details p { margin: 8px 0 0; }
 
+  
   /* Reduced motion */
   @media (prefers-reduced-motion: reduce) {
     * { animation: none !important; transition: none !important; }
@@ -244,13 +262,13 @@
     bottom: 16px;
     z-index: 20;
     display: none;
-    background: #ff5656;
+    background: #7c3aed;
     color: #fff;
     border: none;
     border-radius: 24px;
     padding: 10px 14px;
     cursor: pointer;
-    box-shadow: 0 6px 14px rgba(255, 34, 34, 0.4);
+    box-shadow: 0 6px 14px rgba(124, 58, 237, 0.4);
   }
 
   /* Focus visible for accessibility */
@@ -261,9 +279,9 @@
   nav a:focus-visible,
   details summary:focus-visible,
   #backToTop:focus-visible {
-    outline: 3px solid #ff9a9a;
+    outline: 3px solid #c084fc;
     outline-offset: 3px;
-    box-shadow: 0 0 0 3px rgba(255, 85, 85, 0.2);
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.2);
   }
 
   /* Small utility button */
@@ -312,6 +330,7 @@
   <header>
     <button class="menu-toggle" aria-label="Ouvrir/fermer le menu">☰ Menu</button>
     <nav role="navigation" aria-label="Navigation principale">
+      <div id="navIndicator" aria-hidden="true"></div>
       <a href="#home" class="active" data-tab="home">Accueil</a>
       <a href="#guide" data-tab="guide">Guide</a>
       <a href="#roadmap" data-tab="roadmap">À venir</a>
@@ -331,7 +350,7 @@
     </section>
     <section id="guide" aria-labelledby="guide-title">
       <h2 id="guide-title">Guide rapide</h2>
-      <h3 style="margin:8px 0 6px; color:#ff6e6e;">Fonctionnalités</h3>
+      <h3 style="margin:8px 0 6px; color:#a78bfa;">Fonctionnalités</h3>
       <ul style="margin-left:18px;">
         <li><strong>🖱️ Clicker Gauche / Droite</strong> — Contrôle total des clics</li>
         <li><strong>🎯 Randomisation Avancée</strong> — Détection anti-cheat</li>
@@ -350,7 +369,7 @@
         <li><strong>📌 Toujours au Premier Plan</strong> — Accessibilité</li>
         <li><strong>🎭 Discord Rich Presence</strong> — Intégration sociale</li>
       </ul>
-      <h3 style="margin:14px 0 6px; color:#ff6e6e;">Interface Moderne</h3>
+      <h3 style="margin:14px 0 6px; color:#a78bfa;">Interface Moderne</h3>
       <ul style="margin-left:18px;">
         <li><strong>🎨 Design épuré</strong> — couleurs teal modernes</li>
         <li><strong>📱 Interface responsive</strong> — intuitive</li>
@@ -413,6 +432,7 @@
         <li>[ ] Mode sombre/clair automatique</li>
       </ul>
     </section>
+    
   </main>
 
   
@@ -483,6 +503,7 @@
   const navLinks = document.querySelectorAll('nav a');
   const sections = document.querySelectorAll('main section');
   const tabTriggers = document.querySelectorAll('[data-tab]');
+  
 
   function activateTab(target) {
     navLinks.forEach(l => l.classList.remove('active'));
@@ -550,6 +571,33 @@
     });
   }
 
+  // Tab indicator + sticky header opacity on scroll
+  const navEl = document.querySelector('nav');
+  const indicator = document.getElementById('navIndicator');
+  function updateIndicator() {
+    if (!navEl || !indicator) return;
+    const active = navEl.querySelector('a.active');
+    if (!active) return;
+    const rect = active.getBoundingClientRect();
+    const parentRect = navEl.getBoundingClientRect();
+    const left = rect.left - parentRect.left;
+    indicator.style.left = left + 'px';
+    indicator.style.width = rect.width + 'px';
+  }
+  window.addEventListener('resize', updateIndicator);
+  setTimeout(updateIndicator, 0);
+  const origActivateTab = activateTab;
+  activateTab = function(target){ origActivateTab(target); updateIndicator(); };
+
+  function onHeaderScroll() {
+    const header = document.querySelector('header');
+    if (!header) return;
+    const y = window.scrollY || document.documentElement.scrollTop;
+    if (y > 10) header.classList.add('scrolled'); else header.classList.remove('scrolled');
+  }
+  window.addEventListener('scroll', onHeaderScroll, { passive: true });
+  onHeaderScroll();
+
   // (Presets retirés)
 
   // Incrémenter un compteur local uniquement au clic sur "Télécharger" (facultatif)
@@ -602,8 +650,8 @@
     }
     draw() {
       ctx.beginPath();
-      ctx.fillStyle = 'rgba(255,80,80,0.6)';
-      ctx.shadowColor = 'rgba(255,80,80,0.8)';
+      ctx.fillStyle = 'rgba(124,58,237,0.6)';
+      ctx.shadowColor = 'rgba(124,58,237,0.8)';
       ctx.shadowBlur = 8;
       ctx.arc(this.x, this.y, this.size, 0, Math.PI*2);
       ctx.fill();
@@ -663,6 +711,8 @@
       startAnimation();
     }
   });
+
+  
 
 </script>
 
