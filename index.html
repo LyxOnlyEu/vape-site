@@ -270,6 +270,38 @@
     outline-offset: 3px;
     box-shadow: 0 0 0 3px rgba(255, 85, 85, 0.2);
   }
+
+  /* Small utility button */
+  .small-btn {
+    display: inline-block;
+    margin-left: 8px;
+    padding: 4px 8px;
+    border-radius: 6px;
+    border: 1px solid #444;
+    background: #23262b;
+    color: #ddd;
+    cursor: pointer;
+    font-size: 0.9rem;
+  }
+  .small-btn:hover { background: #2a2d33; }
+
+  /* Mobile action bar */
+  .action-bar {
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    display: none;
+    background: rgba(31,33,37,0.92);
+    backdrop-filter: blur(8px);
+    border-top: 1px solid #2b2e34;
+    padding: 10px 14px calc(env(safe-area-inset-bottom, 0) + 10px);
+    z-index: 25;
+  }
+  .action-bar .row {
+    display: flex; gap: 10px; justify-content: center;
+  }
+  @media (max-width: 700px) {
+    .action-bar { display: block; }
+  }
 </style>
 </head>
 <body>
@@ -333,6 +365,15 @@
         <li><strong>🎯 Icônes emoji</strong> — navigation claire</li>
         <li><strong>⚡ Performance optimisée</strong> — gestion des threads améliorée</li>
       </ul>
+      <div style="margin-top:10px;">
+        <h3 style="margin:10px 0 6px; color:#ff6e6e;">Presets rapides</h3>
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <button class="small-btn" type="button" data-preset="vanilla">Appliquer: Vanilla (6 CPS)</button>
+          <button class="small-btn" type="button" data-preset="pvp">Appliquer: PvP (8 CPS)</button>
+          <button class="small-btn" type="button" data-preset="hypixel">Appliquer: Hypixel-like (7±1 CPS)</button>
+        </div>
+        <p id="presetStatus" style="color:#9ad1ff; margin-top:6px; font-size:0.95rem;">Aucun preset appliqué.</p>
+      </div>
       <p style="color:#aaa; margin-top:8px;">Astuce: commencez avec 6–10 CPS, ajustez selon votre serveur et vos besoins.</p>
     </section>
 
@@ -349,7 +390,7 @@
         <ul>
           <li><strong>Version</strong> : <span id="version">v1.0.0</span></li>
           <li><strong>Taille</strong> : ~ <span>12.4 Mo</span></li>
-          <li><strong>SHA256</strong> : <code id="checksum">—</code></li>
+          <li><strong>SHA256</strong> : <code id="checksum">—</code><button id="copySha" class="small-btn" type="button">Copier</button></li>
         </ul>
         <div class="mirrors">
           <a class="btn secondary" href="https://www.mediafire.com/file/wv9cmo8kg2pz4ua/VAPE.rar/file" target="_blank" rel="noopener noreferrer">Miroir 1</a>
@@ -398,6 +439,13 @@
 </div>
 
 <button id="backToTop" aria-label="Revenir en haut">↑ Haut</button>
+<div class="action-bar" aria-hidden="false">
+  <div class="row">
+    <a class="btn" href="#download" data-tab="download">Télécharger</a>
+    <a class="btn secondary" href="#guide" data-tab="guide">Guide</a>
+  </div>
+  
+</div>
 
 <script>
   // Authentification supprimée: afficher le site et initialiser le tableau de bord
@@ -429,6 +477,21 @@
         });
     } else if (checksumEl) {
       checksumEl.textContent = 'non disponible';
+    }
+
+    // Copier le SHA256
+    var copyBtn = document.getElementById('copySha');
+    if (copyBtn && checksumEl && navigator.clipboard) {
+      copyBtn.addEventListener('click', async function() {
+        try {
+          await navigator.clipboard.writeText(checksumEl.textContent || '');
+          copyBtn.textContent = 'Copié';
+          setTimeout(() => { copyBtn.textContent = 'Copier'; }, 1200);
+        } catch (e) {
+          copyBtn.textContent = 'Erreur';
+          setTimeout(() => { copyBtn.textContent = 'Copier'; }, 1200);
+        }
+      });
     }
   });
 
@@ -503,6 +566,20 @@
     });
   }
 
+  // Presets logiques (démonstration UI)
+  const presetStatus = document.getElementById('presetStatus');
+  const presetButtons = document.querySelectorAll('button[data-preset]');
+  presetButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const p = btn.getAttribute('data-preset');
+      let desc = '';
+      if (p === 'vanilla') desc = 'Vanilla appliqué: 6 CPS, clic gauche simple, random OFF';
+      if (p === 'pvp') desc = 'PvP appliqué: 8 CPS, clic gauche, jitter léger, random ON';
+      if (p === 'hypixel') desc = 'Hypixel-like appliqué: 7±1 CPS, random ON, blockhit ON';
+      if (presetStatus) presetStatus.textContent = desc || 'Preset appliqué.';
+    });
+  });
+
   // Incrémenter un compteur local uniquement au clic sur "Télécharger" (facultatif)
   const downloadBtn = document.getElementById('downloadBtn');
   if (downloadBtn) {
@@ -518,6 +595,7 @@
   const canvas = document.getElementById('background');
   const ctx = canvas.getContext('2d');
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isMobile = /Mobi|Android/i.test(navigator.userAgent);
   let w, h;
   function resize() {
     w = canvas.width = window.innerWidth;
@@ -595,7 +673,7 @@
     animationId = null;
   }
 
-  if (!prefersReducedMotion) {
+  if (!prefersReducedMotion && !isMobile) {
     startAnimation();
   }
 
@@ -609,7 +687,7 @@
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
       stopAnimation();
-    } else if (!prefersReducedMotion) {
+    } else if (!prefersReducedMotion && !isMobile) {
       startAnimation();
     }
   });
