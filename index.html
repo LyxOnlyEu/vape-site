@@ -201,6 +201,14 @@
   details summary { cursor: pointer; font-weight: 600; color: #ff6e6e; }
   details p { margin: 8px 0 0; }
 
+  /* Account forms */
+  .auth-card { background: rgba(50,50,55, 0.7); border-radius: 12px; padding: 18px; box-shadow: 0 4px 12px rgba(0,0,0,0.35); max-width: 520px; }
+  .auth-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+  .auth-grid label { display: block; font-weight: 600; margin-bottom: 6px; color: #ff9a9a; }
+  .auth-grid input { width: 100%; padding: 10px 12px; background: #222; border: 1px solid #333; border-radius: 8px; color: #eee; }
+  .auth-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
+  .muted { color: #aaa; font-size: 0.95rem; }
+  .role-badge { display: inline-block; padding: 4px 8px; border-radius: 999px; background: #263238; color: #9ad1ff; font-weight: 700; font-size: 0.85rem; }
   /* Reduced motion */
   @media (prefers-reduced-motion: reduce) {
     * { animation: none !important; transition: none !important; }
@@ -316,6 +324,7 @@
       <a href="#guide" data-tab="guide">Guide</a>
       <a href="#roadmap" data-tab="roadmap">À venir</a>
       <a href="#download" data-tab="download">Téléchargement</a>
+      <a href="#account" data-tab="account" id="accountNav">Compte</a>
       <a href="#faq" data-tab="faq">FAQ</a>
     </nav>
   </header>
@@ -413,6 +422,51 @@
         <li>[ ] Mode sombre/clair automatique</li>
       </ul>
     </section>
+    <section id="account" aria-labelledby="account-title">
+      <h2 id="account-title">Compte</h2>
+      <div id="accountGuest" class="auth-card" style="display:none;">
+        <h3 style="margin-bottom:8px; color:#ff6e6e;">Connexion / Inscription</h3>
+        <div class="auth-grid">
+          <div>
+            <label for="authUsername">Nom d'utilisateur</label>
+            <input id="authUsername" type="text" placeholder="ex: Alex" autocomplete="username" />
+          </div>
+          <div>
+            <label for="authPassword">Mot de passe</label>
+            <input id="authPassword" type="password" placeholder="••••••••" autocomplete="current-password" />
+          </div>
+          <div>
+            <label for="authAdminCode">Code Admin (optionnel)</label>
+            <input id="authAdminCode" type="text" placeholder="Entrer le code pour rôle Admin" />
+          </div>
+        </div>
+        <div class="auth-actions">
+          <button id="btnLogin" class="btn" type="button">Se connecter</button>
+          <button id="btnRegister" class="btn secondary" type="button">S'inscrire</button>
+        </div>
+        <p class="muted" style="margin-top:6px;">Votre compte est stocké localement. Utilisez un mot de passe unique.</p>
+      </div>
+
+      <div id="accountUser" class="auth-card" style="display:none;">
+        <h3 style="margin-bottom:8px; color:#ff6e6e;">Profil</h3>
+        <p><strong>Utilisateur:</strong> <span id="profileUsername"></span> <span id="profileRole" class="role-badge"></span></p>
+        <div class="auth-grid" style="margin-top:10px;">
+          <div>
+            <label for="profileStatus">Statut</label>
+            <input id="profileStatus" type="text" placeholder="ex: member, admin" />
+          </div>
+          <div>
+            <label for="profileEmail">Email (optionnel)</label>
+            <input id="profileEmail" type="email" placeholder="ex: alex@mail.com" autocomplete="email" />
+          </div>
+        </div>
+        <div class="auth-actions">
+          <button id="btnSaveProfile" class="btn" type="button">Sauvegarder</button>
+          <button id="btnLogout" class="btn secondary" type="button">Se déconnecter</button>
+        </div>
+        <p class="muted" style="margin-top:6px;">Les modifications sont enregistrées dans votre navigateur.</p>
+      </div>
+    </section>
   </main>
 
   
@@ -483,6 +537,7 @@
   const navLinks = document.querySelectorAll('nav a');
   const sections = document.querySelectorAll('main section');
   const tabTriggers = document.querySelectorAll('[data-tab]');
+  const accountNav = document.getElementById('accountNav');
 
   function activateTab(target) {
     navLinks.forEach(l => l.classList.remove('active'));
@@ -663,6 +718,125 @@
       startAnimation();
     }
   });
+
+  // ===== Auth & Profil (localStorage) =====
+  const LS_USERS_KEY = 'va_users';
+  const LS_SESSION_KEY = 'va_session';
+  const ADMIN_INVITE_CODE = 'VAPE-ADMIN-2025'; // Code admin
+
+  function getUsers() {
+    try { return JSON.parse(localStorage.getItem(LS_USERS_KEY) || '{}'); } catch(_) { return {}; }
+  }
+  function saveUsers(map) {
+    localStorage.setItem(LS_USERS_KEY, JSON.stringify(map));
+  }
+  function getSession() {
+    try { return JSON.parse(localStorage.getItem(LS_SESSION_KEY) || 'null'); } catch(_) { return null; }
+  }
+  function setSession(username) {
+    if (username) localStorage.setItem(LS_SESSION_KEY, JSON.stringify({ username }));
+    else localStorage.removeItem(LS_SESSION_KEY);
+  }
+  async function hashPassword(plain) {
+    if (window.crypto && window.crypto.subtle && plain) {
+      const enc = new TextEncoder().encode(plain);
+      const buf = await crypto.subtle.digest('SHA-256', enc);
+      return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+    }
+    return plain; // fallback
+  }
+
+  // Elements
+  const accountGuest = document.getElementById('accountGuest');
+  const accountUser = document.getElementById('accountUser');
+  const authUsername = document.getElementById('authUsername');
+  const authPassword = document.getElementById('authPassword');
+  const authAdminCode = document.getElementById('authAdminCode');
+  const btnLogin = document.getElementById('btnLogin');
+  const btnRegister = document.getElementById('btnRegister');
+  const profileUsername = document.getElementById('profileUsername');
+  const profileRole = document.getElementById('profileRole');
+  const profileStatus = document.getElementById('profileStatus');
+  const profileEmail = document.getElementById('profileEmail');
+  const btnSaveProfile = document.getElementById('btnSaveProfile');
+  const btnLogout = document.getElementById('btnLogout');
+
+  function refreshAccountUI() {
+    const session = getSession();
+    if (session && session.username) {
+      const users = getUsers();
+      const u = users[session.username];
+      if (u) {
+        if (accountGuest) accountGuest.style.display = 'none';
+        if (accountUser) accountUser.style.display = 'block';
+        if (profileUsername) profileUsername.textContent = u.username;
+        if (profileRole) profileRole.textContent = (u.role || 'member').toUpperCase();
+        if (profileStatus) profileStatus.value = u.status || '';
+        if (profileEmail) profileEmail.value = u.email || '';
+        return;
+      }
+    }
+    if (accountGuest) accountGuest.style.display = 'block';
+    if (accountUser) accountUser.style.display = 'none';
+  }
+
+  async function handleRegister() {
+    const username = (authUsername && authUsername.value.trim()) || '';
+    const password = (authPassword && authPassword.value) || '';
+    const code = (authAdminCode && authAdminCode.value.trim()) || '';
+    if (username.length < 3 || password.length < 6) { alert('Utilisateur ou mot de passe invalide.'); return; }
+    const users = getUsers();
+    if (users[username]) { alert('Utilisateur déjà existant.'); return; }
+    const passHash = await hashPassword(password);
+    const role = code === ADMIN_INVITE_CODE ? 'admin' : 'member';
+    users[username] = { username, passHash, role, status: '', email: '' };
+    saveUsers(users);
+    setSession(username);
+    refreshAccountUI();
+    alert('Inscription réussie. Connecté.');
+  }
+
+  async function handleLogin() {
+    const username = (authUsername && authUsername.value.trim()) || '';
+    const password = (authPassword && authPassword.value) || '';
+    if (!username || !password) { alert('Renseignez utilisateur et mot de passe.'); return; }
+    const users = getUsers();
+    const u = users[username];
+    if (!u) { alert('Utilisateur introuvable.'); return; }
+    const passHash = await hashPassword(password);
+    if (u.passHash !== passHash) { alert('Mot de passe incorrect.'); return; }
+    // Role elevation si code admin fourni à la connexion
+    const code = (authAdminCode && authAdminCode.value.trim()) || '';
+    if (code === ADMIN_INVITE_CODE && u.role !== 'admin') { u.role = 'admin'; saveUsers(users); }
+    setSession(username);
+    refreshAccountUI();
+    alert('Connecté.');
+  }
+
+  function handleSaveProfile() {
+    const session = getSession();
+    if (!session) return;
+    const users = getUsers();
+    const u = users[session.username];
+    if (!u) return;
+    u.status = (profileStatus && profileStatus.value.trim()) || '';
+    u.email = (profileEmail && profileEmail.value.trim()) || '';
+    saveUsers(users);
+    refreshAccountUI();
+  }
+
+  function handleLogout() {
+    setSession(null);
+    refreshAccountUI();
+  }
+
+  if (btnRegister) btnRegister.addEventListener('click', () => { handleRegister(); });
+  if (btnLogin) btnLogin.addEventListener('click', () => { handleLogin(); });
+  if (btnSaveProfile) btnSaveProfile.addEventListener('click', () => { handleSaveProfile(); });
+  if (btnLogout) btnLogout.addEventListener('click', () => { handleLogout(); });
+
+  // Init account UI
+  refreshAccountUI();
 
 </script>
 
