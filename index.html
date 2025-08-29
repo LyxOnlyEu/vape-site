@@ -79,12 +79,17 @@
     position: sticky;
     top: 0;
   }
+  header.scrolled {
+    background: rgba(44,47,53, 0.55);
+    backdrop-filter: blur(8px);
+  }
   nav {
     max-width: 1100px;
     margin: 0 auto;
     display: flex;
     justify-content: center;
     gap: 40px;
+    position: relative;
   }
   nav a {
     flex: 1;
@@ -108,6 +113,18 @@
     background: rgba(124, 58, 237, 0.15);
     transform: translateY(-3px);
     box-shadow: 0 4px 10px rgba(124, 58, 237, 0.2);
+  }
+  /* Tab indicator */
+  #navIndicator {
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    height: 3px;
+    width: 0;
+    background: #7c3aed;
+    border-radius: 3px;
+    transition: left 0.3s ease, width 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
   }
   main {
     flex-grow: 1;
@@ -313,6 +330,7 @@
   <header>
     <button class="menu-toggle" aria-label="Ouvrir/fermer le menu">☰ Menu</button>
     <nav role="navigation" aria-label="Navigation principale">
+      <div id="navIndicator" aria-hidden="true"></div>
       <a href="#home" class="active" data-tab="home">Accueil</a>
       <a href="#guide" data-tab="guide">Guide</a>
       <a href="#roadmap" data-tab="roadmap">À venir</a>
@@ -552,6 +570,33 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   }
+
+  // Tab indicator + sticky header opacity on scroll
+  const navEl = document.querySelector('nav');
+  const indicator = document.getElementById('navIndicator');
+  function updateIndicator() {
+    if (!navEl || !indicator) return;
+    const active = navEl.querySelector('a.active');
+    if (!active) return;
+    const rect = active.getBoundingClientRect();
+    const parentRect = navEl.getBoundingClientRect();
+    const left = rect.left - parentRect.left;
+    indicator.style.left = left + 'px';
+    indicator.style.width = rect.width + 'px';
+  }
+  window.addEventListener('resize', updateIndicator);
+  setTimeout(updateIndicator, 0);
+  const origActivateTab = activateTab;
+  activateTab = function(target){ origActivateTab(target); updateIndicator(); };
+
+  function onHeaderScroll() {
+    const header = document.querySelector('header');
+    if (!header) return;
+    const y = window.scrollY || document.documentElement.scrollTop;
+    if (y > 10) header.classList.add('scrolled'); else header.classList.remove('scrolled');
+  }
+  window.addEventListener('scroll', onHeaderScroll, { passive: true });
+  onHeaderScroll();
 
   // (Presets retirés)
 
