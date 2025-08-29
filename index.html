@@ -192,21 +192,7 @@
   }
   /* Styles supprimés: logout */
 
-  /* Features */
-  .features-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 18px;
-    margin-top: 10px;
-  }
-  .feature-card {
-    background: rgba(50,50,55, 0.7);
-    border-radius: 12px;
-    padding: 18px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.35);
-  }
-  .feature-card h3 { color: #ff6e6e; margin-bottom: 6px; }
-  .feature-card p { margin: 0; }
+  /* Features supprimé au profit d'un guide rapide */
 
   /* Download meta */
   .download-meta { margin-top: 14px; }
@@ -302,9 +288,7 @@
     <button class="menu-toggle" aria-label="Ouvrir/fermer le menu">☰ Menu</button>
     <nav role="navigation" aria-label="Navigation principale">
       <a href="#home" class="active" data-tab="home">Accueil</a>
-      <a href="#about" data-tab="about">À propos</a>
-      <a href="#features" data-tab="features">Fonctionnalités</a>
-      <a href="#dashboard" data-tab="dashboard">Tableau de bord</a>
+      <a href="#guide" data-tab="guide">Guide</a>
       <a href="#download" data-tab="download">Téléchargement</a>
       <a href="#faq" data-tab="faq">FAQ</a>
     </nav>
@@ -313,47 +297,25 @@
   <main role="main">
     <section id="home" class="active" aria-labelledby="home-title">
       <h1 id="home-title">VAPE Autoclick — rapide, précis, personnalisable.</h1>
-      <p>Bienvenue sur le site officiel de VAPE Autoclick, un autoclicker pensé pour la simplicité et la performance.<br>
-         Configurez vos clics, contrôlez vos timings et gagnez en efficacité sans effort.</p>
+      <p>Un autoclicker simple et performant. Réglez vos CPS, choisissez le mode de clic et des raccourcis adaptés à vos tâches légitimes.</p>
       <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:8px;">
         <a class="btn" href="#download" data-tab="download">Télécharger</a>
-        <a class="btn secondary" href="#features" data-tab="features">Découvrir les fonctionnalités</a>
+        <a class="btn secondary" href="#guide" data-tab="guide">Guide rapide</a>
       </div>
     </section>
-    <section id="features" aria-labelledby="features-title">
-      <h2 id="features-title">Fonctionnalités clés d’un autoclicker</h2>
-      <div class="features-grid">
-        <div class="feature-card">
-          <h3>Fréquence réglable</h3>
-          <p>Ajustez les CPS (clics par seconde) pour des scénarios variés.</p>
-        </div>
-        <div class="feature-card">
-          <h3>Modes de clic</h3>
-          <p>Clic gauche/droit, simple/double, intervalle aléatoire optionnel.</p>
-        </div>
-        <div class="feature-card">
-          <h3>Raccourcis clavier</h3>
-          <p>Démarrage/arrêt instantané avec des touches personnalisables.</p>
-        </div>
-        <div class="feature-card">
-          <h3>Profil et sauvegarde</h3>
-          <p>Enregistrez des profils pour changer de configuration en un clic.</p>
-        </div>
-      </div>
+    <section id="guide" aria-labelledby="guide-title">
+      <h2 id="guide-title">Guide rapide</h2>
+      <ol style="margin-left:18px;">
+        <li>Choisissez le <strong>mode</strong> (gauche/droit, simple/double).</li>
+        <li>Réglez les <strong>CPS</strong> (clics par seconde) et l’<strong>intervalle</strong>.</li>
+        <li>(Optionnel) Activez une <strong>randomisation</strong> légère de l’intervalle.</li>
+        <li>Assignez des <strong>raccourcis clavier</strong> pour démarrer/arrêter.</li>
+        <li>Enregistrez un <strong>profil</strong> pour réutiliser vos réglages.</li>
+      </ol>
+      <p style="color:#aaa;">Astuce: commencez avec 6–10 CPS, ajustez selon le contexte d’utilisation.</p>
     </section>
 
-    <section id="about" aria-labelledby="about-title">
-      <h2 id="about-title">À propos de VAPE Autoclick</h2>
-      <p>VAPE Autoclick est un autoclicker léger et précis. Il vous permet d’automatiser des clics de souris à des intervalles définis, avec des options avancées (aléatoire, double-clic, raccourcis).</p>
-      <p>Il vise la simplicité d’usage, la stabilité et la personnalisation, pour s’adapter à vos usages légitimes (tests, répétitions de tâches, accessibilité).</p>
-    </section>
-
-    <section id="dashboard" aria-labelledby="dashboard-title">
-      <h2 id="dashboard-title">Tableau de bord</h2>
-      <p>Nombre total de téléchargements :</p>
-      <div id="downloadCount">0</div>
-      <p>Statistiques en temps réel, mises à jour automatiques et analyses pour mieux vous servir.</p>
-    </section>
+    
 
     <section id="download" aria-labelledby="download-title">
       <h2 id="download-title">Téléchargement</h2>
@@ -416,7 +378,6 @@
   window.addEventListener('DOMContentLoaded', () => {
     // JS enabled
     try { document.documentElement.classList.remove('no-js'); } catch(e) {}
-    loadDashboardStats();
     // Activer l'onglet selon le hash initial (si présent)
     var initialHash = window.location.hash ? window.location.hash.replace('#','') : '';
     if (initialHash) {
@@ -511,14 +472,7 @@
     });
   }
 
-  // Tableau de bord - simulation compteur
-  function loadDashboardStats() {
-    const countEl = document.getElementById('downloadCount');
-    let count = parseInt(localStorage.getItem('downloadCount') || '0', 10);
-    countEl.textContent = count.toLocaleString();
-  }
-
-  // Incrémenter le compteur uniquement au clic sur "Télécharger"
+  // Incrémenter un compteur local uniquement au clic sur "Télécharger" (facultatif)
   const downloadBtn = document.getElementById('downloadBtn');
   if (downloadBtn) {
     downloadBtn.addEventListener('click', () => {
@@ -526,8 +480,6 @@
       count = isNaN(count) ? 0 : count;
       count++;
       localStorage.setItem('downloadCount', count);
-      const countEl = document.getElementById('downloadCount');
-      if (countEl) countEl.textContent = count.toLocaleString();
     });
   }
 
